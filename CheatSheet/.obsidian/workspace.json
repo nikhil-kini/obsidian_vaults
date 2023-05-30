@@ -1,0 +1,167 @@
+{
+  "main": {
+    "id": "2d095f75f0e576e1",
+    "type": "split",
+    "children": [
+      {
+        "id": "730c6f35def50206",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "13d3d3199c1d0c0a",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "063ef142b8c0f730",
+    "type": "split",
+    "children": [
+      {
+        "id": "1e1cda8d1768c6ca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "016bb6689d7f8a1a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6c2a93ef567d1d4a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "92cc05aa25cc6d78",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 239.5
+  },
+  "right": {
+    "id": "d3cab2ab9595170e",
+    "type": "split",
+    "children": [
+      {
+        "id": "10ffdd4392880ab8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "98acc10791647239",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "beb92ec17a728bb6",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5d6dbbe55c41d426",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "53665c002935520c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "13d3d3199c1d0c0a",
+  "lastOpenFiles": [
+    "GIT/GIT Rewriting History.md",
+    "GIT/GIT Installation.md",
+    "GIT/GIT Creating Snapshots.md",
+    "GIT/GIT Collaboration.md",
+    "GIT/GIT Browsing History.md",
+    "GIT/GIT Branching and Merging.md",
+    "Misc/Obsidian.md",
+    "GIT",
+    "Programming Syntax/Python/Basics.md",
+    "Programming Syntax/Regular Expression.md",
+    "Misc/HTTP Status Codes.md",
+    "Misc/Markdown.md",
+    "Programming Syntax",
+    "Databases",
+    "Cloud",
+    "System Design",
+    "Linux",
+    "DSA",
+    "Programming Syntax/Python",
+    "Programming Syntax/Java",
+    "Databases/SQL",
+    "Markdown2.md"
+  ]
+}
