@@ -52,6 +52,20 @@ git config --global diff.tool kompare
 git config --global difftool.kompare.cmd "kompare $LOCAL $REMOTE" 
 ```
 
+**Initial Git Push**
+
+* Create Repository in GitHub.
+* Run following command.
+```sh
+echo "# obsidian_vaults" >> README.md   # file with dummy text
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:nikhil-kini/obsidian_vaults.git
+git push -u origin main
+```
+
 [[GIT Creating Snapshots]]
 [[GIT Browsing History]]
 [[GIT Branching and Merging]]

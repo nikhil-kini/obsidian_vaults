@@ -11,8 +11,12 @@
             "id": "13d3d3199c1d0c0a",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Programming Syntax/Java/Java Exceptions.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Programming Syntax/Java/Java Exceptions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Programming Syntax/Java/Java Exceptions.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Programming Syntax/Java/Java Exceptions.md"
+              }
             }
           }
         ],
@@ -141,18 +149,23 @@
   },
   "active": "13d3d3199c1d0c0a",
   "lastOpenFiles": [
-    "GIT/GIT Rewriting History.md",
+    "Programming Syntax/Java/Java Enums.md",
+    "Programming Syntax/Java/Java Exceptions.md",
+    "Programming Syntax/Python/Python Iterators.md",
+    "Programming Syntax/Python/Python methods and modules.md",
+    "Programming Syntax/Python/Python Data Structures.md",
+    "Programming Syntax/Python/Python Basics.md",
+    "Misc/Obsidian.md",
+    "Misc/Markdown.md",
     "GIT/GIT Installation.md",
+    "GIT/GIT Rewriting History.md",
     "GIT/GIT Creating Snapshots.md",
     "GIT/GIT Collaboration.md",
     "GIT/GIT Browsing History.md",
     "GIT/GIT Branching and Merging.md",
-    "Misc/Obsidian.md",
     "GIT",
-    "Programming Syntax/Python/Basics.md",
     "Programming Syntax/Regular Expression.md",
     "Misc/HTTP Status Codes.md",
-    "Misc/Markdown.md",
     "Programming Syntax",
     "Databases",
     "Cloud",
