@@ -1,3 +1,7 @@
+[[Python Data Structures]]
+[[Python methods and modules]]
+[[Python Iterators]]
+[[PIP]]
 
 * Python is an interpreted, high-level and general-purpose, dynamically typed programming language
 * It is also Object oriented, modular oriented and a scripting language.
@@ -58,7 +62,6 @@ if x not in range(8) or \
 | complex | Complex numbers [2+3j, 4-1j] |
 
 ### Check types
-
 ```python
 type('spam')    #=> <type 'str'>
 type(1) is int  #=> True
@@ -67,6 +70,11 @@ type(1) is int  #=> True
 
 ### Typecasting
 
+**Type conversion functions**
+
+* The `int` function takes any value and converts it to an integer.`int` can convert floating-point values to integers, but it doesn’t round off; it chops off the fraction part.
+* `float` converts integers and strings to floating-point numbers
+* `str` converts its argument to a string
 ```python
 int('1010', 2)  #=> 2     # cast from binary to decimal int
 str(2)          #=> "2"   # cast to string
@@ -75,7 +83,6 @@ float(2)        #=> 2.0   # cast int 2 into float
 
 
 ### Binary
-
 ```python
 bin(10)       #=> 0b1010
 10 == 0b1010  #=> True
@@ -201,9 +208,7 @@ False
 
 
 ### Naming the variable in Python
-
 The names you use when creating these labels need to follow a few rules:
-
 1. Names can not start with a number.
 2. There can be no spaces in the name, use _ instead.
 3. Can't use any of these symbols :'",<>/?|\()!@#$%^&*~-+
@@ -213,58 +218,13 @@ The names you use when creating these labels need to follow a few rules:
 6. Avoid using words that have special meaning in Python like "list" and "str"
 
 
-
-```python
-
-# Use of input, it always returns string
-speed = input('Enter your speed: ')
-
-# To find the type of variable
-type(var)
-
-# To find length
-len('Hello')
-
-```
-
 ### String 
-
 * All Strings are Unicode from Python3. `u'abc' = 'abc'`
 * The expression in brackets is called an ***index***. The index indicates which character in the sequence you want. And it must be a integer.
 * Strings are immutable, i.e, `s[0] = 's'` is not possible.
-
-#### Slicing
-```python
-# Assign s as a string
-s = 'Hello World'
-
-# Show first element (in this case a letter)
-s[0]
-
-# Grab everything past the first term all the way to the length of s which is len(s)
-s[1:]
-
-# Grab everything UP TO the 3rd index
-s[:3]
-
-# Last letter (one index behind 0 so it loops back around)
-s[-1]
-
-# Grab everything but the last letter
-s[:-1]
-
-# Grab everything, but go in steps size of 1
-s[::1]
-
-# We can use this to print a string backwards
-s[::-1]
-
-# We can reassign s completely though!
-s = s + ' concatenate me!'
-```
+* [[Slicing]] operation can be performed.
 
 #### String comparison
-
 Python does not handle uppercase and lowercase letters the same way that people do. All the uppercase letters come before all the lowercase letters, so:
 
 `Your word, Pineapple, comes before banana.`
@@ -282,6 +242,7 @@ else:
     print('All right, bananas.')
 ```
 A common way to address this problem is to convert strings to a standard format, such as all lowercase, before performing the comparison.
+
 
 ### Print
 #### Formatted String Literals (f-strings)
@@ -332,7 +293,6 @@ print(f"My 10 character, four decimal number is:{num:10.4f}")
     My 10 character, four decimal number is:   23.4500
 
 #### Other Common Print types
-
 * refer this for [.format()]([https://docs.python.org/3/library/string.html#formatstrings](https://docs.python.org/3/library/string.html#formatstrings))
 * other regular usages
 ```python
@@ -344,7 +304,6 @@ print(lst)                          # prints an list
 
 
 ### Input
-
 ```python
 name = input("What is your name?")  # read in string
 num = float(input("give a number")) # read in number
@@ -352,7 +311,6 @@ num = float(input("give a number")) # read in number
 
 
 ### Selection statement
-
 ```py
 if condition_1:
   # do something 1
@@ -361,23 +319,22 @@ elif condition_2:
 else:
   # do something else
 ```
-Note: There are no switch statements in Python
+Note: There are no switch statements in Python.
+The compiler follows [[Short Circuit Logic]]
 
 
 ### Conditional assignment
-
 ```py
 x = 10 if a > b else 11
 ```
 
 This is analogous to the more common conditional assignment syntax in other languages:
 ```java
-x = a > b ? 10 : 11 ;
+int x = a > b ? 10 : 11 ;
 ```
 
 
 ### For loop
-
 ```python
 for i in some_list:
   # do something
@@ -385,9 +342,7 @@ for i in some_list:
 
 
 ### For-else loop
-
 The else block will execute only when the loop condition is evaluated to `False`. i.e. it will only run once at the end
-
 ```python
 for number in numbers: 
   # do something
@@ -404,9 +359,7 @@ while condition:
 
 
 ### While-else loop
-
 Just like for-else loops, the else block is executed only when the while-loops terminates formally
-
 ```python
 while condition: 
   # do something
@@ -416,9 +369,37 @@ else:
 
 
 ### Control flow
-
 ```python
 break     # breaks out of current loop
 continue  # continues to next iteration in loop
 pass      # dose nothing
 ```
+
+
+### Functions
+Be careful with names, you wouldn't want to call a function the same name as a [built-in function in Python](https://docs.python.org/3/library/functions.html) (such as len).
+
+The first line of the function definition is called the header; the rest is called the body. The header has to end with a colon and the body has to be indented. By convention, the indentation is always four spaces. The body can contain any number of statements.
+```python
+def name_of_function(arg1,arg2):
+    '''
+    This is where the function's Document String (docstring) goes.
+    When you call help() on your function it will be printed out.
+    '''
+    # Do stuff here
+    # Return desired result
+```
+
+
+### Return
+use a `return` statement. `return` allows a function to *return* a result that can then be stored as a variable, or used in whatever manner a user wants.
+
+*Very Common Question: "What is the difference between *return* and *print*?"
+**The return keyword allows you to actually save the result of the output of a function as a variable. The print() function simply displays the output to you, but doesn't save it for future use. Let's explore this in more detail**
+
+### Lambda: anonymous functions
+```python
+lst = [0, 1, 2, 3, 4, 5, 6]
+filter(lambda x: x % 3 == 0, lst) #=> [0, 3, 6]
+```
+

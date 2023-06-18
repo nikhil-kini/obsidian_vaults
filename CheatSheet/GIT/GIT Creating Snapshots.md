@@ -1,3 +1,5 @@
+#git 
+
 ### Creating Snapshots  
 
 **Initializing a repository**
@@ -86,4 +88,3 @@ git clean -fd # Removes all untracked files
 git restore --source = HEAD~2 file.js
 ```
 
-#git

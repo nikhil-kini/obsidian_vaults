@@ -2,7 +2,6 @@
 ## Iterators
 
 ### Iterator basics
-
 ```python
 lst = [3,1,4,1,5,9,2,6,5]
 lst_itr = iter(lst) # creates a fresh iterator over lst
@@ -19,7 +18,6 @@ def print_iter(itr):
 
 
 ### Casting iterators
-
 ```python
 print_iter(lst_itr)
 print('Empty List:', list(lst_itr)) # At this point in time the iterator has exhausted and therefore this will return an empty list
@@ -29,7 +27,6 @@ print('Exhausted iterable casted as list will be empty:',list(lst_itr)) # This w
 ```
 
 ### Map object is an iterator
-
 ```python
 doubled = map(lambda x: 2*x, lst)
 print_iter(doubled) # proves that map object is just an iterator

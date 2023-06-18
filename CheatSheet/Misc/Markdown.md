@@ -1,3 +1,5 @@
+#obsidian #markdown
+
 Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
 
 ---
@@ -68,7 +70,6 @@ Inline `code` has `back-ticks around` it.
 ```
 
 #### Blocks of Code
-
 <pre>
 
 ```javascript
@@ -88,7 +89,6 @@ But let's throw in a <b>tag</b>.
 </pre>
 
 ### Tables
-
 There must be at least 3 dashes separating each header cell.
 The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily.
 
@@ -100,7 +100,6 @@ The outer pipes (|) are optional, and you don't need to make the raw Markdown li
 ```
 
 ### Task list
-
 To create a task list start line with square brackets with an empty space.
 Ex: `[ <space> ]` and add text for task.
 To check the task replace the space between the bracket with "x".
@@ -112,7 +111,6 @@ To check the task replace the space between the bracket with "x".
 ```
 
 ## Reference
-
 Link: [markdown guide](https://www.markdownguide.org/cheat-sheet)
 GitHub Documentation: [Writing Markdown on GitHub](https://docs.github.com/en/get-started/writing-on-github)
-#obsidian #markdown
+

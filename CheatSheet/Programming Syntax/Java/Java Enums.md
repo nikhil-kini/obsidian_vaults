@@ -1,9 +1,7 @@
 ## Enum
-
 Please see https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 
 ### Without constructor
-
 ```java
 public enum Day {
   SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
@@ -12,7 +10,6 @@ public enum Day {
 ```
 
 ### With constructor
-
 ```java
 public enum Planet {
   MERCURY (3.303e+23, 2.4397e6),

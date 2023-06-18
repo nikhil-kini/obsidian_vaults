@@ -1,3 +1,10 @@
+#git 
+
+[[GIT Creating Snapshots]]
+[[GIT Browsing History]]
+[[GIT Branching and Merging]]
+[[GIT Collaboration]]
+[[GIT Rewriting History]]
 
 ### Git Config
 
@@ -6,7 +13,7 @@ Global -> All repository at current user level.
 Local -> The current repository.
 
 
-### Initial Setup on Installation
+### Initial Setup after Installation
 
 **Set Git User**
 ```bash
@@ -66,11 +73,6 @@ git remote add origin git@github.com:nikhil-kini/obsidian_vaults.git
 git push -u origin main
 ```
 
-[[GIT Creating Snapshots]]
-[[GIT Browsing History]]
-[[GIT Branching and Merging]]
-[[GIT Collaboration]]
-[[GIT Rewriting History]]
 
-#git
+
 

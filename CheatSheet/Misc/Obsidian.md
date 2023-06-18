@@ -1,14 +1,12 @@
+#obsidian 
 
 ## Installation
-
 Use **Flatpack** package manager for installation in the Linux distros, for more options visit [install](https://obsidian.md/)
 
 ## Usage
-
 Uses [[Markdown]] for text formatting. With few additional functionalities.
 
 ### Terminologies
-
 **Vault** - Folder which contains the notes.
 
 ### Shortcuts
@@ -40,8 +38,7 @@ Uses [[Markdown]] for text formatting. With few additional functionalities.
 | `#tag` | Create tags|
 
 ## References
-
 Obsidian Docs: [Obsidian Help](https://help.obsidian.md/Editing+and+formatting/Obsidian+Flavored+Markdown)
 
-#obsidian
+
 
