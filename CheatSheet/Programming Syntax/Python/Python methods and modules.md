@@ -5,6 +5,9 @@ len('Hello')
 # To define Infinity
 float("inf")
 
+# To get the ASCII values of the string
+ord('a')
+
 ```
 
 
@@ -82,6 +85,7 @@ del lst[index]          # same as above
 ### Dictionaries
 Common methods to check and update members
 ```python
+res = defaultdict(list) # To define the value in the dic are list
 key in dic        # check if key is in dic
 dic[key] = value  # adding/updating value. Note key can be a number
 del dic[key]      # delete (key, val) from dic
@@ -91,6 +95,7 @@ Common methods to extract members:
 dic.items()   # returns an list of (key, value) tuples, not in any order
 dic.keys()    # returns an list of keys, not in any order
 dic.values()  # return an list of values, not in any order
+dic.get(key, defalut_) # default_ is returned if key not in dic
 ```
 
 #### re

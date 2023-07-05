@@ -1,3 +1,4 @@
+[[Java Basics]]
 ## Enum
 Please see https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
 

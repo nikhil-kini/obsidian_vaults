@@ -11,17 +11,9 @@
             "id": "13d3d3199c1d0c0a",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
-            }
-          },
-          {
-            "id": "597677e4e5832a45",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "Node.md",
+                "file": "Programming Syntax/Python/Python methods and modules.md",
                 "mode": "source",
                 "source": false
               }
@@ -93,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Programming Syntax/Python/Python methods and modules.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -109,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Programming Syntax/Python/Python methods and modules.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Programming Syntax/Python/Python methods and modules.md"
+              }
             }
           }
         ],
@@ -153,42 +149,44 @@
   },
   "active": "13d3d3199c1d0c0a",
   "lastOpenFiles": [
-    "Angular/SPA.md",
-    "Programming Syntax/Python/Unit Testing.md",
-    "Programming Syntax/Python/File.md",
-    "Programming Syntax/Python/Python Data Structures.md",
-    "CSS.md",
-    "Angular/Angular.md",
-    "Programming Syntax/Typescript.md",
-    "Node.md",
-    "Angular",
-    "Programming Syntax/HTML/HTML.md",
-    "Misc/Obsidian.md",
-    "Programming Syntax/Regular Expression.md",
-    "Programming Syntax/HTML",
-    "Programming Syntax/Short Circuit Logic.md",
-    "System Design/Tiers.md",
-    "Databases/SQL/Postgress.md",
-    "Docker/Containers.md",
-    "Kubernetes",
-    "Docker/Practical.md",
-    "Docker/Docker.md",
-    "Docker/Dockerfile.md",
-    "Programming Syntax/Python/Python methods and modules.md",
+    "Programming Syntax/Java/Java Enums.md",
+    "Programming Syntax/Java/Java Advanced.md",
+    "Programming Syntax/Java/Java Basics.md",
+    "DSA/Trees.md",
+    "DSA/Graphs.md",
+    "DSA/Algorithm Design Techniques.md",
+    "GIT/GIT Installation.md",
+    "DSA/Functional Programming.md",
     "Programming Syntax/Python/Python Basics.md",
-    "Pasted image 20230613151029.png",
-    "GIT/GIT Branching and Merging.md",
-    "System Design/Cloud Native.md",
-    "System Design/Application Architecture.md",
-    "System Design/Microservices.md",
-    "Programming Syntax/Python/Common terminologies.md",
+    "Programming Syntax/Python/Python Data Structures.md",
+    "Programming Syntax/Python/Python Iterators.md",
+    "Programming Syntax/Python/Python methods and modules.md",
+    "Programming Syntax/Python/Unit Testing.md",
+    "Programming Syntax/Python/Slicing.md",
+    "Programming Syntax/Python/PIP.md",
+    "Programming Syntax/Python/File.md",
     "Programming Syntax/Python/Exception Handling.md",
+    "Programming Syntax/Python/Common terminologies.md",
+    "DSA/Analysis O(N).md",
+    "Softskills/Email Etiquette.md",
+    "Softskills/File Management.md",
+    "Softskills/Tell Me about Yourself.md",
+    "Softskills",
+    "Programming Syntax/HTML/HTML.md",
+    "Angular/Angular.md",
+    "Untitled.md",
+    "Databases/SQL/Postgress.md",
+    "Programming Syntax/Java/assests/Collection.png",
+    "Programming Syntax/Java/assests/architecture.png",
+    "Programming Syntax/Java/assests",
+    "Programming Syntax/Typescript",
+    "Angular",
+    "Programming Syntax/HTML",
+    "Kubernetes",
+    "Pasted image 20230613151029.png",
     "`/Desktop/Notes/Data Science",
     "`/Desktop/Notes",
     "`/Desktop",
-    "`",
-    "GIT",
-    "Programming Syntax",
-    "Databases"
+    "`"
   ]
 }

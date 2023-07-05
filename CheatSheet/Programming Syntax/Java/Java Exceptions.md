@@ -1,3 +1,4 @@
+[[Java Basics]]
 ## Exceptions
 The exception hierarchy in Java is as follows:
 ```
