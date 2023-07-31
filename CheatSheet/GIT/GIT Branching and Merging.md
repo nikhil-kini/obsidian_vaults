@@ -15,6 +15,7 @@ git checkout bugfix   # Switches to the bugfix branch
 git switch bugfix     # Same as the above
 git switch -C bugfix  # Creates and switches
 git branch -d bugfix  # Deletes the bugfix branch
+git branch -a         # To dispaly all the branches
 ```
 
 **Comparing branches**
