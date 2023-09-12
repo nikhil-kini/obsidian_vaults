@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Angular/Angular.md",
+                "file": "Programming Syntax/Java/Java Enums.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Angular/Angular.md",
+                "file": "Programming Syntax/Java/Java Enums.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Angular/Angular.md",
+                "file": "Programming Syntax/Java/Java Enums.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Angular/Angular.md"
+                "file": "Programming Syntax/Java/Java Enums.md"
               }
             }
           }
@@ -147,11 +147,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "016bb6689d7f8a1a",
+  "active": "13d3d3199c1d0c0a",
   "lastOpenFiles": [
+    "Misc/Neovim.md",
+    "Misc/Tmux.md",
+    "Misc/Obsidian.md",
+    "Linux/Kill an Application.md",
+    "Linux/Change User access(incorect).md",
+    "Databases/SQL/Postgress.md",
+    "Databases/SQL/Normalization Postgress.md",
+    "Angular/Angular.md",
     "Angular/Usefull's.md",
     "Angular/Node.md",
-    "Angular/Angular.md",
     "Softskills/Email Etiquette.md",
     "GIT/GIT Branching and Merging.md",
     "GIT/GIT Rewriting History.md",
@@ -161,7 +168,6 @@
     "GIT/GIT Browsing History.md",
     "Programming Syntax/Typescript/Typescript.md",
     "Programming Syntax/Typescript/Typescript Cheat Sheet.md",
-    "Misc/Neovim Setup.md",
     "Programming Syntax/Python/Python methods and modules.md",
     "Programming Syntax/Java/Java Enums.md",
     "Programming Syntax/Java/Java Advanced.md",
@@ -169,12 +175,6 @@
     "DSA/Trees.md",
     "DSA/Graphs.md",
     "DSA/Algorithm Design Techniques.md",
-    "DSA/Functional Programming.md",
-    "Programming Syntax/Python/Python Basics.md",
-    "Programming Syntax/Python/Python Data Structures.md",
-    "Programming Syntax/Python/Python Iterators.md",
-    "Programming Syntax/Python/Unit Testing.md",
-    "Programming Syntax/Python/Slicing.md",
     "Softskills",
     "Programming Syntax/Java/assests/Collection.png",
     "Programming Syntax/Java/assests/architecture.png",
