@@ -13,12 +13,16 @@ git clone shh_link
 
 **Syncing with remotes**
 ```sh
+git push remoteName branchName  # Syntax
+
 git fetch origin master      # Fetches master from origin
 git fetch origin             # Fetches all objects from origin
 git fetch                    # Shortcut for “git fetch origin”
+git checkout origin/food     # view the origin remote changes
+
 git pull                     # Fetch + merge
-git push origin master       # Pushes master to origin
-git push                     # Shortcut for “git push origin master”
+git push origin master       # Pushes master branch to origin remote
+git push                     # Shortcut for “git push origin master” pushes all branches
 ```
 
 **Sharing tags**
@@ -35,7 +39,7 @@ git push -u origin bugfix     # Pushes bugfix to origin
 git push -d origin bugfix     # Removes bugfix from origin
 ```
 
-**Managing remotes**
+**Managing remotes** #gitImp 
 ```sh
 git remote                     # Shows remote repos
 git remote add upstream url    # Adds a new remote called upstream

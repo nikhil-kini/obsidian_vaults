@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming Syntax/Java/Java Enums.md",
+                "file": "GIT/GIT Rewriting History.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Programming Syntax/Java/Java Enums.md",
+                "file": "GIT/GIT Rewriting History.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Programming Syntax/Java/Java Enums.md",
+                "file": "GIT/GIT Rewriting History.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming Syntax/Java/Java Enums.md"
+                "file": "GIT/GIT Rewriting History.md"
               }
             }
           }
@@ -149,32 +149,32 @@
   },
   "active": "13d3d3199c1d0c0a",
   "lastOpenFiles": [
-    "Misc/Neovim.md",
-    "Misc/Tmux.md",
-    "Misc/Obsidian.md",
+    "GIT/GIT Browsing History.md",
+    "GIT/GIT Branching and Merging.md",
     "Linux/Kill an Application.md",
     "Linux/Change User access(incorect).md",
     "Databases/SQL/Postgress.md",
     "Databases/SQL/Normalization Postgress.md",
     "Angular/Angular.md",
+    "GIT/GIT Rewriting History.md",
+    "GIT/GIT Installation.md",
+    "GIT/GIT Creating Snapshots (Basics).md",
+    "GIT/GIT Collaboration.md",
+    "GIT/GIT Checkout.md",
+    "Programming Syntax/Java/Java Enums.md",
+    "Misc/Neovim.md",
+    "Misc/Tmux.md",
+    "Misc/Obsidian.md",
     "Angular/Usefull's.md",
     "Angular/Node.md",
     "Softskills/Email Etiquette.md",
-    "GIT/GIT Branching and Merging.md",
-    "GIT/GIT Rewriting History.md",
-    "GIT/GIT Installation.md",
-    "GIT/GIT Creating Snapshots.md",
-    "GIT/GIT Collaboration.md",
-    "GIT/GIT Browsing History.md",
     "Programming Syntax/Typescript/Typescript.md",
     "Programming Syntax/Typescript/Typescript Cheat Sheet.md",
     "Programming Syntax/Python/Python methods and modules.md",
-    "Programming Syntax/Java/Java Enums.md",
     "Programming Syntax/Java/Java Advanced.md",
     "Programming Syntax/Java/Java Basics.md",
     "DSA/Trees.md",
     "DSA/Graphs.md",
-    "DSA/Algorithm Design Techniques.md",
     "Softskills",
     "Programming Syntax/Java/assests/Collection.png",
     "Programming Syntax/Java/assests/architecture.png",

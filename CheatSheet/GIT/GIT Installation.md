@@ -1,6 +1,6 @@
 #git 
 
-[[GIT Creating Snapshots]]
+[[GIT Creating Snapshots (Basics)]]
 [[GIT Browsing History]]
 [[GIT Branching and Merging]]
 [[GIT Collaboration]]
@@ -15,7 +15,7 @@ Local -> The current repository.
 
 ### Initial Setup after Installation
 
-**Set Git User**
+**Set Git User** 
 ```bash
 git config --global user.name "Nikhil Kini"
 ```
@@ -62,13 +62,14 @@ git config --global difftool.kompare.cmd "kompare $LOCAL $REMOTE"
 **Initial Git Push**
 
 * Create Repository in GitHub.
-* Run following command.
+* Run following command. [[GIT Collaboration]] manage remote
 ```sh
 echo "# obsidian_vaults" >> README.md   # file with dummy text
 git init
 git add README.md
 git commit -m "first commit"
-git branch -M main
+
+git branch -M main # rename master to Main
 git remote add origin git@github.com:nikhil-kini/obsidian_vaults.git
 git push -u origin main
 ```
