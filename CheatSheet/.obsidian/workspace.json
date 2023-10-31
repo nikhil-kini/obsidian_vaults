@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "13d3d3199c1d0c0a",
+            "id": "97e14066d0bc3ab2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -18,8 +18,43 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b4690588e0a31104",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Misc/Neovim.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "30643b7c52d311e7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Programming Syntax/SCSS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6ad042ea0bbfa8bb",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.4.12"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -147,7 +182,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "13d3d3199c1d0c0a",
+  "active": "30643b7c52d311e7",
   "lastOpenFiles": [
     "GIT/GIT Browsing History.md",
     "GIT/GIT Branching and Merging.md",

@@ -16,6 +16,17 @@ Paste the following line in the head of [[HTML]](between the [`<head>`](https://
 <link href="styles/style.css" rel="stylesheet" />
 ```
 
+**Variables**
+```css
+:root{
+	--varible-name: value;/* name should start with --*/
+}
+
+body {
+	backgound: var(--variable-name);
+}
+```
+
 ## Rule Set 
 The whole structure is called a **ruleset**. (The term _ruleset_ is often referred to as just _rule_.) Note the names of the individual parts:
 
@@ -74,7 +85,7 @@ There are many different types of selectors. The examples above use **element se
 
 There are many more selectors to discover. To learn more, see the MDN [Selectors guide](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
 
-### Declaration Type
+### [Declaration Type](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
 CSS layout is mostly based on the _box model._ Each box taking up space on your page has properties like:
 
 - `padding`, the space around the content. In the example below, it is the space around the paragraph text.
@@ -169,9 +180,24 @@ li {
 }
 ```
 **[Relative font size units](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)** - ex: ems, rems
+[units](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
+| Units | Use Case|
+|---|---|
+| `px` | Use for *borders, dashes*
+| `rem` | 1 `rem` = 1 root element i.e size by browser defaults, use for *font size* 
+| `em` | 1 `em` uses the parent element has the ref. Use for *margin, padding*
+| `%` | to set the percentage size based on the parent element. Use for *all*
 
-
+### CSS reset
+Applies property to all elements. Use the below code to clear browser defaults.
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;/* width: property will exclude margin
+}
+```
 
 ## References
 
