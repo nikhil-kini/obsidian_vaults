@@ -175,10 +175,11 @@ enum CardinalDirections {
   West   // 3
 }
 let currentDirection = CardinalDirections.North;
-// logs 0
 console.log(currentDirection);
-// throws error as 'North' is not a valid enum
+// logs 0
+
 currentDirection = 'North'; // Error: "North" is not assignable to type 'CardinalDirections'.
+// throws error as 'North' is not a valid enum
 ```
 
 #### Numeric Enums - Initialized

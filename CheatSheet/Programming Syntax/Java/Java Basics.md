@@ -1,5 +1,5 @@
 
-## HELLO WORLD :ghost:
+## HELLO WORLD:
 ```java
 //Text file name HelloWorld.java
 public class HelloWorld {

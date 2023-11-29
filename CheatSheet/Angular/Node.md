@@ -4,11 +4,24 @@ node -v
 ```
 
 Use n module from npm in order to upgrade node
-
 ```sh
 sudo npm cache clean -f
 sudo npm install -g n
 sudo n stable
+```
+
+```sh
+npm update -g npm
+```
+
+To get outdated packages in the project
+```sh
+npm outdated
+```
+
+To update the project
+```sh
+npm update
 ```
 
 To Initialize Node

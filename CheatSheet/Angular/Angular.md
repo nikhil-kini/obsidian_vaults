@@ -62,6 +62,16 @@ To add a service (in the directory)
 ng g s name_of_service # = ng generate service name
 ```
 
+To add a environments
+```shell
+ng g environmets# = ng generate environments
+```
+
+To add a interface (in the directory)
+```shell
+ng g interface name_of_service # = ng generate interface name
+```
+
 To add a interceptor (in the directory)
 ```shell
 ng g interceptor name_of_interceptor 
@@ -90,6 +100,9 @@ ng g m name_of_module --routing --flat=true # = ng generate module name
 To build the application in the production mode
 ```sh
 ng build -c=production
+```
+```sh
+ng serve --prod
 ```
 
 To add a module (in the directory)(Lazy loaded with routing )
@@ -823,7 +836,7 @@ Angular executes hook methods in the following sequence. Use them to perform the
 |`ngAfterViewChecked()`|Respond after Angular checks the component's views and child views, or the view that contains the directive.|Called after the `ngAfterViewInit()` and every subsequent `ngAfterContentChecked()`.|
 |`ngOnDestroy()`|Cleanup just before Angular destroys the directive or component. Unsubscribe Observables and detach event handlers to avoid memory leaks. See details in [Cleaning up on instance destruction](https://github.com/angular/angular/blob/main/aio/content/guide/lifecycle-hooks.md#ondestroy) in this document.|Called immediately before Angular destroys the directive or component.|
 
-
+![ng_dia](./assets/ng_dia.png)
 * VID 4:46:00 to 6:50:00
 
 ### Component Communication
