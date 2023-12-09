@@ -1,4 +1,5 @@
 ## Method 1
+
 Just go to the "run" dialog (`Alt+F2`), type in `xkill` and your mouse pointer will change to an "x". Point on the application that you want to kill and click, and it'll be killed.
 
 ## Method 2
