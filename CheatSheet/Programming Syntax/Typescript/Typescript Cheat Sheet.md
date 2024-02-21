@@ -60,9 +60,12 @@ let number1 = '5' // Compile error: Type of 'string' not assignable to type of '
 
 ```typescript
 let number1: number   // Not Null
-let number1?: number  // Optional value, no error
-let number1!: number  // 
+let number1?: number  // Not Undefined value, no error
+let number1!: number  // Not Undefined and Not Null value
 let ...number1: number  // Stream of values of type number
+
+let number1 = '5' 
+let num = +number1 //  convert to number
 ```
 
 

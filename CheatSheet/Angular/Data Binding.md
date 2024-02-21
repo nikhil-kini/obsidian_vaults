@@ -3,11 +3,8 @@
 ```Typescript
 export class RoomsComponent {
   hotelName = 'Hilton Hotel';
-
   numberOfRooms = 10;
-
   hide = false;
-
   toggle(){
     this.hide = !this.hide;
   }
@@ -39,7 +36,37 @@ Any variable or method which will return string or resolve to string (number, et
 <button (click) = "toggle()">hide</button>
 ```
 
-### `$event` variable
+### Template Statement
+
+- A template statements are something that responds to an event raised by a target like an Angular element, component, or directive.
+- With template statements, your application can engage users through actions such as displaying dynamic content or submitting forms.
+- It commits side effects as it changes the fields in the component.
+
+```ts
+import { Component} from '@angular/core';
+
+@Component({
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styles: []
+})
+
+export class AppComponent {
+	title = 'demo1';
+	showText = false;
+	  
+	toggleText(event: any): void{
+		this.showText = !this.showText;
+		console.log(event);
+	}
+}
+```
+
+```html
+<button (click)="toggleText($event)">Toggle me</button>
+{{showText}}
+```
+#### `$event` variable
 This is a special variable which contains all data on DOM element.
 ```html
 <input
@@ -53,6 +80,8 @@ This is a special variable which contains all data on DOM element.
     this.serverName = (<HTMLInputElement>event.target).value;
   }
 ```
+
+
 ### Attribute Binding, Class and Style Binding
 
 - **Attribute binding** in Angular helps you set values for attributes directly. It is recommended that you set an element property with a property binding whenever possible. 
@@ -72,13 +101,13 @@ example:
 import { Component} from '@angular/core';
 
 @Component({
-selector: 'app-root',
-templateUrl: './app.component.html',
-styles: []
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styles: []
 })
 
 export class AppComponent {
-onSale = true;
+	onSale = true;
 }
 ```
 
@@ -105,6 +134,7 @@ class2: false
 <div [class]="['class1', 'class2']"></div>
 ```
 
+
 - Similarly class binding
 ```html
 <p [style.name-of-css-property]="expression"></p>
@@ -126,7 +156,7 @@ height:10px
 }"></div>
 ```
 
-### Two-way binding
+### Two-way binding (not recommended, use local reference `#var` or a service)
 
 - Two-way binding in Angular gives components in your application a way to share data. 
 - Use two-way binding to listen for events and update values simultaneously between parent and child components. 
@@ -136,14 +166,14 @@ ex:
 import { Component} from '@angular/core';
 
 @Component({
-selector: 'app-root',
-templateUrl: './app.component.html',
-styles: []
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styles: []
 })
 
 export class AppComponent {
-title = 'demo1';
-fontSizepx = 16;
+	title = 'demo1';
+	fontSizepx = 16;
 }
 ```
 
@@ -152,6 +182,7 @@ fontSizepx = 16;
 <div [style.font-size.px]="fontSizepx">Resize</div>
 ```
 
+ex 2:
 ```ts
 serverName = 'Testserver';
 ```
@@ -164,46 +195,21 @@ serverName = 'Testserver';
 <p>{{serverName}}</p>
 ```
 
+ex 3: using local variable
 ```ts
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AppComponent } from '../app.component';
+serverName = 'Testserver';
 
-@Component({
-selector: 'app-app-sizer',
-templateUrl: './app-sizer.component.html',
-styles: [
-]
-})
-
-export class AppSizerComponent {
-@Input() size: number;
-@Output() sizeChange = new EventEmitter<number>();
-
-constructor(private d: AppComponent){
-this.size = d.fontSizepx;
-}
-
-dec(){
-this.resize(-1);
-}
-
-inc (){
-this.resize(+1);
-}
-
-resize(delta:number){
-this.size = Math.min(40, Math.max(8, + this.size + delta));
-this.sizeChange.emit(this.size);
-}
-
+setServer(vari: htmlElement): void{
+	this.serverName = vari.value;
 }
 ```
 
 ```html
-<div>
-<button (click)="dec()">-</button>
-<button (click)="inc()">+</button>
-<label [style.font-size.px]="size">FontSize: {{size}}</label>
-</div>
+<input
+  type="text"
+  class="form-control"
+  #localVar>
+<button (click)="serServer(localVar)">Set value</button>
+<p>{{serverName}}</p>
 ```
 
