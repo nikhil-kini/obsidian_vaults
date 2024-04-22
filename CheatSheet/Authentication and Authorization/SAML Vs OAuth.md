@@ -1,0 +1,11 @@
+[refer](https://kinde.com/guides/authentication/protocols/saml-vs-oauth-20/)
+
+The key differences between SAML and OAuth, mainly based on the fact that they involve different functions.
+
+| SAML                                                                                                                        | OAuth                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Involved in authentication: this process involves authenticating the user’s identity.                                       | Involved in authorization: this process involves authorizing users’ privileges.                                                                               |
+| Allows users to log in once and then gain access to various applications without having to provide login credentials again. | Grants access to third-party applications to obtain resources on behalf of the user without the application accessing the user’s credentials.                 |
+| Used for SSO by large companies and government entities where XML is extensive.                                             | More commonly used on the open internet with companies like Twitter, Google, Facebook, Instagram, and other social platforms, APIs, and cloud-based services. |
+| Uses XML-based formats for authentication and a trust relationship between the IdP and the SP.                              | Uses tokens to grant access which can be removed by a user.                                                                                                   |
+SAML and OAuth can be used interchangeably and at the same time. SAML can be used to authenticate a user, giving them access to an application, while OAuth can be used to set user privileges in applications and services in a network.
