@@ -1,6 +1,6 @@
 **Only for authorization and delegated authorization, tokens are validators**
 
-![[Pasted image 20240422164411.png]]
+![[Oauth.png]]
 
 
 [OAuth 2](https://oauth.net/2/) is an authorization framework that enables applications — such as GitHub, and DigitalOcean — to obtain limited access to user accounts on an HTTP service. It works by delegating user authentication to the service that hosts a user account and authorizing third-party applications to access that user account. OAuth 2 provides authorization flows for web and desktop applications, as well as mobile devices.

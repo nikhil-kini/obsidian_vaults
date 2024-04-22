@@ -2,7 +2,7 @@
 
 **For authentication and basic authorization, Assertions are validators**
 
-![[Pasted image 20240422164345.png]]
+![[saml.png]]
 
 **Security Assertion Markup Language 2.0** (**SAML 2.0**) is a version of the [SAML](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language "Security Assertion Markup Language") standard for exchanging [authentication](https://en.wikipedia.org/wiki/Authentication "Authentication") and [authorization](https://en.wikipedia.org/wiki/Authorization "Authorization") identities between [security domains](https://en.wikipedia.org/wiki/Security_domain "Security domain"). SAML 2.0 is an [XML](https://en.wikipedia.org/wiki/XML "XML")-based [protocol](https://en.wikipedia.org/wiki/Communications_protocol "Communications protocol") that uses [security tokens](https://en.wikipedia.org/wiki/Software_token "Software token") containing [assertions](https://en.wikipedia.org/wiki/Security_Assertion_Markup_Language "Security Assertion Markup Language") to pass information about a principal (usually an end user) between a SAML authority, named an [Identity Provider](https://en.wikipedia.org/wiki/Identity_Provider "Identity Provider"), and a SAML consumer, named a [Service Provider](https://en.wikipedia.org/wiki/Service_Provider "Service Provider"). SAML 2.0 enables web-based, cross-domain [single sign-on](https://en.wikipedia.org/wiki/Single_sign-on "Single sign-on") (SSO), which helps reduce the administrative overhead of distributing multiple authentication tokens to the user.
 
