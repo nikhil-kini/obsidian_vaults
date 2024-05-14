@@ -93,6 +93,26 @@ export class ParentComponent {
 <app-child (alias-name)="receiveMessage($event)"></app-child>
 ```
 
+
+#### Note
+
+```html
+<products-list
+[productList]="products" <!-- input -->
+(onProductSelected)="productWasSelected($event)"> <!-- output -->
+</products-list>
+```
+The \[*squareBrackets*] pass inputs and the (*parentheses*) handle outputs.
+Data flows in to your component via *input bindings* and events flow out of your
+component through *output bindings*.
+That is:
+	• `(onProductSelected)`, the left-hand side is the name of the output we want to
+	“listen” on
+	• `"productWasSelected"`, the right-hand side is the function we want to call
+	when something new is sent to this output
+	• `$event` is a special variable here that represents the thing emitted on (i.e. sent
+	to) the output.
+
 #### `@ViewChild` and `@ContentChild`
 
 -  `@ViewChild` **Child to  -> Parent**

@@ -41,3 +41,11 @@ All the **compilation** is done in the **client browser**.
 ```html
 <div class=app-server></div>
 ```
+
+## Use full Operators
+| Operator | Usage                                 |
+| -------- | ------------------------------------- |
+| `?`      | accept variable to be undefined       |
+| `!`      | accept variable to be null, undefined |
+| `+`      | Typecast string to number.            |
+eg: `a?: number`, `b!.value`, `+c.value`

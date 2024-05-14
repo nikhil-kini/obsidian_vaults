@@ -1,7 +1,7 @@
 
 ## Initial setup
 
-* Install [[Node]]
+* Install [[00 Node Commands]]
 * `npm init` to create a package.json
 * `npm i typescript` 
 * `tsc --init` to initialize Typescript
@@ -1053,14 +1053,14 @@ type OmitCompleted = Omit<Todo, 'completed'>;
 
 ## Interface vs Type
 
-|**Interfaces**|**Type Aliases**|
-|---|---|
-|In Typescript, interfaces focus on the Type Checking feature. It defines and shapes a construct|Type Aliases is a custom or hand-written name provided to an existing data type of Typescript|
-|It allows optional, readOnly properties|It allows optional, readOnly properties|
-|It allows callable and static properties|It allows callable and static properties|
-|Interfaces can be extended by other Interfaces and Type Aliases<br><br>Ex: interface Result extends score, Grade{<br><br>}|Type Aliases cannot be extended by other Interfaces and Type Aliases.<br><br>Intersections will help in Type Aliases to do extending<br><br>Ex: type Result = Score & Grade|
-|It can be implemented by a class|It can be implemented by a class and extended by an Interface.|
-|Interface addresses declaration merging|Type Aliases do not address declaration merging|
+| **Interfaces**                                                                                                             | **Type Aliases**                                                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| In Typescript, interfaces focus on the Type Checking feature. It defines and shapes a construct                            | Type Aliases is a custom or hand-written name provided to an existing data type of Typescript                                                                               |
+| It allows optional, readOnly properties                                                                                    | It allows optional, readOnly properties                                                                                                                                     |
+| It allows callable and static properties                                                                                   | It allows callable and static properties                                                                                                                                    |
+| Interfaces can be extended by other Interfaces and Type Aliases<br><br>Ex: interface Result extends score, Grade{<br><br>} | Type Aliases cannot be extended by other Interfaces and Type Aliases.<br><br>Intersections will help in Type Aliases to do extending<br><br>Ex: type Result = Score & Grade |
+| It can be implemented by a class                                                                                           | It can be implemented by a class and extended by an Interface.                                                                                                              |
+| Interface addresses declaration merging                                                                                    | Type Aliases do not address declaration merging                                                                                                                             |
 
 
 ## Resources

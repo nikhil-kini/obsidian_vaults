@@ -19,6 +19,28 @@ Any variable or method which will return string or resolve to string (number, et
 <h1>Hotel Name {{hotelName}} </h1>
 <div innerText="{{numberOfRooms}}"></div>
 ```
+Using the `{{…}}` syntax is called template binding.
+``` html
+<div class="inventory-app">
+<h1>{{ product.name }}</h1>
+<span>{{ product.sku }}</span>
+</div>
+```
+the code inside the brackets is an expression. That means you can do things like this:
+• `{{ count + 1 }}`
+• `{{ myFunction(myArguments) }}`
+In the first case, we’re using an operator to change the displayed value of `count`.
+In the second case, we’re able to replace the tags with the value of the function
+`myFunction(myArguments)`.
+
+Notice that we can use template strings in attribute values, as in the href of the
+a tag: `href="{{ link }}"`. In this case, the value of the `href` will be dynamically
+populated with the value of link from the component class
+```html
+<a class="ui large header" href="{{ link }}"> {{ title }}
+</a>
+```
+
 
 #### Property Binding
 - Property binding moves a value in one direction so you can see it as a one-way street.
