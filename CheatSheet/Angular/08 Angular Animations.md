@@ -3,6 +3,11 @@ In general:
 
 > CSS transitions is hard to apply while DOM is manipulated by the angular.
 
+```ts
+import:[
+BrowserAnimationModule  // app.moudle.ts
+]
+```
 Animate is the transition between one state to another state, so define states.
 1 state =>transition=> 2 state
 ## Trigger

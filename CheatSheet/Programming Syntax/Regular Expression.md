@@ -190,5 +190,3 @@ I love cogs --skip
 ```regex
 I love ([cb]ats*|[dh]ogs?)
 ```
-
-- 

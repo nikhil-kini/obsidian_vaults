@@ -253,7 +253,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({ // Decorator gives meta-data to angular
 
-declarations: [ // Component, Directive and Pipe are declared here
+declarations: [ // Custom Component, Directive and Pipe are declared here
 
 	AppComponent
 
@@ -269,8 +269,8 @@ imports: [   // Module INFO's of all modules
 
 providers: [],
 
-bootstrap: [AppComponent] // which component needs to be loaded first
-
+bootstrap: [AppComponent], // which component needs to be loaded first
+entryComponents: [AlertComponent] // Dynamic component declaration
 })
 
 export class AppModule { }
