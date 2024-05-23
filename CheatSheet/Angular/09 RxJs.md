@@ -7,6 +7,7 @@
 
 **Observable** doesn't allow values to emit on its behalf we can only subscribe and get stream of values.
 
+Note: Observable names are generally have `$` at the end has a convention ex: `numberObservable$`
 ```ts
 // Import the necessary RxJS modules
 import { Observable } from 'rxjs';
@@ -60,6 +61,14 @@ error():
 observer.error();
 ```
 
+## Always Unsubscribe the create observable 
+```ts
+private subscription: Subscription;
+
+this.subscription = observable.subscribe();
+
+this.subscription.unsubscribe();  // ngOnDestroy(){}
+```
 
 ## Imperative design vs Reactive design
 **Imperative**
