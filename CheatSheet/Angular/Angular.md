@@ -1,67 +1,3 @@
-
-
-
-## Template syntax
-
-### Template Variables
-
-- Template variables in Angular help you use data from one part of a template in another part of the template. 
-- It’s a variable that is created in, and identifies a component or element within, the template itself. 
-- With template variables, you can perform tasks such as respond to user input or finely tune your application's forms. In the template, you use the hash symbol, to declare a template variable.
-ex:
-```html
-<input #phone placeholder="phone"/>
-<button (click)="callPhone(phone.value)">Call</button>
-```
-
-```html
-<!-- Will work -->
-<input #ref1 type="text" [(ngModel)]="firstExample" />
-<span [ngIf]="true">{{ref1.value}}</span>
-```
-
-```html
-<!-- Will cause Error -->
-<input [ngIf]="true" #ref1 type="text" [(ngModel)]="firstExample" />
-<span>{{ref1.value}}</span>
-```
-
-
-
-### Pipes
-
-*  Used for data transformation
-*  Don't change actual object
-* Built-in's : The following are commonly used built-in pipes for data formatting:
-	- [`DatePipe`](https://github.com/angular/angular/blob/main/aio/content/guide/api/common/DatePipe): Formats a date value according to locale rules.
-	- [`UpperCasePipe`](https://github.com/angular/angular/blob/main/aio/content/guide/api/common/UpperCasePipe): Transforms text to all upper case.
-	- [`LowerCasePipe`](https://github.com/angular/angular/blob/main/aio/content/guide/api/common/LowerCasePipe): Transforms text to all lower case.
-	- [`CurrencyPipe`](https://github.com/angular/angular/blob/main/aio/content/guide/api/common/CurrencyPipe): Transforms a number to a currency string, formatted according to locale rules.
-	- [`DecimalPipe`](https://github.com/angular/angular/blob/main/api/common/DecimalPipe): Transforms a number into a string with a decimal point, formatted according to locale rules.
-	- [`PercentPipe`](https://github.com/angular/angular/blob/main/aio/content/guide/api/common/PercentPipe): Transforms a number to a percentage string, formatted according to locale rules.
-* VID time: 4:08:00  to 4:30:00
-*  For a complete list of built-in pipes, see the [pipes API documentation](https://github.com/angular/angular/blob/main/api/common#pipes "Pipes API reference summary").
-- To learn more about using pipes for internationalization (i18n) efforts, see [formatting data based on locale](https://github.com/angular/angular/blob/main/aio/content/guide/guide/i18n-common-format-data-locale "Format data based on locale | Angular").
-
-Create pipes to encapsulate custom transformations and use your custom pipes in template expressions.
-```sh
-ng g p Pipe_name
-```
-
-#### [Pipes and precedence](https://github.com/angular/angular/blob/main/aio/content/guide/pipes-overview.md#pipes-and-precedence)
-The pipe operator has a higher precedence than the ternary operator (`?:`), which means `a ? b : c | x` is parsed as `a ? b : (c | x)`. The pipe operator cannot be used without parentheses in the first and second operands of `?:`.
-
-Due to precedence, if you want a pipe to apply to the result of a ternary, wrap the entire expression in parentheses; for example, `(a ? b : c) | x`.
-
-
-### Adding external libraries
-
-* `ng i `  is automated way to download and add Libraries
-* `npm i`  is manual way, imports must be defined in either angular.json or main.class (of that dependency) after install.
-
-
-
-
 #### Resolution Modifiers
 Angular's resolution behavior can be modified with [@Optional ()](https://angular.io/api/core/Optional) , [@Self()](https://angular.io/api/core/Self) , [@SkipSelf()](https://angular.io/api/core/SkipSelf)() and [@Host()](https://angular.io/api/core/Host).
 VID 7:10:00
@@ -399,16 +335,6 @@ export class AppComponent {
 </form>
 ```
 
-
-
-### Lazy Loading
-
-To download small part of the application, on-demand, lazy loading is used.
-
-### Provider Types
-
-* root
-* any
 
 
 
