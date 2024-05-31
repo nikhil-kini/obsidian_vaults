@@ -8,6 +8,8 @@ Exception heirarchy:
 [Error]          [Exception]
                  /         \
     [IOException]          [RuntimeException]
+    [Checked Exception]    [Unchecked Exception]
+    [Can't control]        [Due to written code]
 ```
 
 ### Useful throw-able methods
@@ -36,6 +38,8 @@ finally {
   // (optional)The finally block always executes, whether or not an exception has occurred
 }
 ```
+to handle the exception without maintaining the order of exceptions (i.e. from most specific to most general `ArithmeticException` -> `Exception`) `Compile-time error`
+
 
 ### Throws/throw
 ```java
