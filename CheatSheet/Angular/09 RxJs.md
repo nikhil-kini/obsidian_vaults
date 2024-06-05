@@ -129,7 +129,7 @@ Allows executing operators on emitted values in the order they were defined.
 ```js
 import { of, pipe } from 'rxjs';
 
-of(1,2,3,4)
+of(1,2,3,4).
     pipe(
         op1(),
         op2(),
@@ -149,7 +149,7 @@ _Useful for side effects as logging and such_.
 import { of, pipe } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-of(1,2,3,4)
+of(1,2,3,4).
     pipe(tap(value => console.log(`The value is ${value}`)))
     .subscribe(data => ...)
 

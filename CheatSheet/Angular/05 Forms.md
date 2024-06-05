@@ -233,7 +233,7 @@ ngOnInit(){
 
 addToFormArray(){
 	const control = new FormControl(null, Validator.required);
-	(<FormArray> this.signupForm.get('fildName3')).push(control);
+	(<FormArray> this.signupForm.get('fieldArrayName')).push(control);
 }
 ```
 

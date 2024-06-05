@@ -1,4 +1,20 @@
 
+## [Life-cycle](https://angular.dev/guide/components/lifecycle)
+
+| **Phase**               | **Method**              | **Summary**                                                                                                                                                                    |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Creation                | `constructor`           | [Standard JavaScript class constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) . Runs when Angular instantiates the component. |
+| Change<br><br>Detection | `ngOnInit`              | Runs once after Angular has initialized all the component's inputs.                                                                                                            |
+|                         | `ngOnChanges`           | Runs every time the component's inputs have changed.                                                                                                                           |
+|                         | `ngDoCheck`             | Runs every time this component is checked for changes.                                                                                                                         |
+|                         | `ngAfterViewInit`       | Runs once after the component's _view_ has been initialized.                                                                                                                   |
+|                         | `ngAfterContentInit`    | Runs once after the component's _content_ has been initialized.                                                                                                                |
+|                         | `ngAfterViewChecked`    | Runs every time the component's view has been checked for changes.                                                                                                             |
+|                         | `ngAfterContentChecked` | Runs every time this component content has been checked for changes.                                                                                                           |
+| Rendering               | `afterNextRender`       | Runs once the next time that **all** components have been rendered to the DOM.                                                                                                 |
+|                         | `afterRender`           | Runs every time **all** components have been rendered to the DOM.                                                                                                              |
+| Destruction             | `ngOnDestroy`           | Runs once before the component is destroyed.                                                                                                                                   |
+
 ### [Life-cycle hooks](https://github.com/angular/angular/blob/main/aio/content/guide/lifecycle-hooks.md)
 
 * Component instance has life-cycle hooks which can help you to hook into different events on Components.

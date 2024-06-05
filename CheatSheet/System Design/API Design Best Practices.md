@@ -65,12 +65,14 @@ The action should be indicated by the HTTP request method that we're making. The
 
 The verbs map to [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
 
-| CRUD   | HTTP                                                                                                                                                                                                                                                  |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Create | [POST, PUT](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") if we have `id` or `uuid`                                                                                                        |
-| Read   | [GET](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol")                                                                                                                                        |
-| Update | [PUT](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") to replace, [PATCH](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") to modify |
-| Delete | [DELETE](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol")                                                                                                                                     |
+| CRUD      | HTTP                                                                                                                                                                                                                                                  |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Create    | [POST, PUT](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") if we have `id` or `uuid`                                                                                                        |
+| Read      | [GET](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol")                                                                                                                                        |
+| Update    | [PUT](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") to replace, [PATCH](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol") to modify |
+| Delete    | [DELETE](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods "Hypertext Transfer Protocol")                                                                                                                                     |
+| meta data | *OPTIONS* for CORS                                                                                                                                                                                                                                    |
+|           |                                                                                                                                                                                                                                                       |
 ```javascript
 // Current implementations (without verbs)
 GET "/api/v1/workouts" 

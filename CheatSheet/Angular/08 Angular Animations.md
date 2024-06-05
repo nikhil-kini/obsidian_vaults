@@ -55,7 +55,7 @@ export class AppComponent {
         [@divState]="state"
         (@divState.start)="animationStarted($event)"
         (@divState.done)="animationEnded($event)">
-      </div>
+</div>
 ```
 
 

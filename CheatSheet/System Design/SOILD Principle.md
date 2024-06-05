@@ -1,0 +1,10 @@
+[refer](https://www.javatpoint.com/solid-principles-java)
+
+The word SOLID acronym for:
+
+- Single Responsibility Principle (SRP)
+- Open-Closed Principle (OCP)
+- Liskov Substitution Principle (LSP)
+- Interface Segregation Principle (ISP)
+- Dependency Inversion Principle (DIP)
+
