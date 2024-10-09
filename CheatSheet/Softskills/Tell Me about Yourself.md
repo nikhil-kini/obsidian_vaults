@@ -13,3 +13,8 @@
 	* Future Portion
 		* What makes you good for the role
 
+
+
+Note:
+- **Break the ice with "How are you feeling today?" to get them in the movement.**
+- **End with "When will the feedback be out, with HR to followup?", "What questions could i have asked?"**

@@ -26,7 +26,7 @@ Database normalization the process of organizing the columns (attributes) and ta
 		4. Using row order to convey information is not permitted.
 • 2nd Normal Form (2NF )  
 	* A table is in 2NF if it is in 1NF and if all non-key attributes are dependent on all of the key. Since a partial dependency occurs when a non-key attribute is dependent on only a part of the composite key, the definition of 2NF is sometimes phrased as: “A table is in 2NF if it is in 1NF and if it has no partial dependencies.” 
-	* Each non-key attribute in the table must be dependent on the entire primary key.
+	* **Each non-key attribute in the table must be dependent on the entire primary key.**
 	* It solves **Deletion, Update, Insertion Anomalies.**
 • 3rd Normal Form (3NF )  
 	Every **non-key attribute** in a table should depend on the key, the whole key, and nothing but the key

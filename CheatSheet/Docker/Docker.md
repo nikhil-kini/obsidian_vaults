@@ -13,12 +13,12 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
 
-Run docker as non root user:
+Run docker as non root user: 
 ```
 sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
-
+(re-boot for change to take affect)
 Install Docker Engine : [Docker Engine](https://docs.docker.com/engine/install/)
 
 ---

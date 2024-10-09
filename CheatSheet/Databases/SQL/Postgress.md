@@ -237,95 +237,91 @@ SELECT * FROM person WHERE email LIKE '%@gmail.%'
 
 #### ILike
 ```SQL
-
+SELECT * FROM table WHERE col1 ILIKE 'pattern';
 ```
-`SELECT * FROM table WHERE col1 ILIKE 'pattern';` - for Pattern search ignore-case
+for Pattern search ignore-case
 
 
 #### Group by
 ```SQL
-
+SELECT col, COUNT(*) FROM table GROUP BY col;
 ```
-`SELECT col, COUNT(*) FROM table GROUP BY col;` - for grouping by and giving the count of distinct values
+for grouping by and giving the count of distinct values
+
 ```SQL
-
+SELECT col, COUNT(*) FROM table GROUP BY col ORDER BY col;
 ```
-`SELECT col, COUNT(*) FROM table GROUP BY col ORDER BY col;` - for grouping by and giving the count of distinct values and sorting by col
+ for grouping by and giving the count of distinct values and sorting by col
 
 #### Group By Having
-```SQL
 
-```
-`HAVING` used only with `GROUP BY`, it should be used right after `GGROUP BY` usage.
+**`HAVING` used only with `GROUP BY`,** it should be used right after `GROUP BY` usage.
 ```SQL
-
+SELECT col, COUNT(*) FROM table GROUP BY col HAVING COUNT(*) > 5;
 ```
-`SELECT col, COUNT(*) FROM table GROUP BY col HAVING COUNT(*) > 5;` - for grouping by and giving the count of distinct values having more than 5 count
+ - for grouping by and giving the count of distinct values having more than 5 count
 
 ##### `COUNT(*)` is a [aggregate](https://www.postgresql.org/docs/current/functions-aggregate.html) function that count grouped by objects
 
-##### `MAX(col)` gives the max value in the col
+##### `MAX(col)` gives the max value in the column
 ```SQL
-
+SELECT MAX(col) FROM table;
 ```
-`SELECT MAX(col) FROM table;`
 
-##### `MIN(col)` gives the min value in the col
+
+##### `MIN(col)` gives the min value in the column
 ```SQL
-
+SELECT MIN(col) FROM table;
 ```
-`SELECT MIN(col) FROM table;`
+
 ```SQL
-
+SELECT col, col2, MIN(col) FROM table GROUP BY col, col2;
 ```
-`SELECT col, col2, MIN(col) FROM table GROUP BY col, col2;`
+
 
 ##### `AVG(col)` gives the AVG value of the col
 ```SQL
-
+SELECT AVG(col) FROM table;
 ```
-`SELECT AVG(col) FROM table;`
+
 ```SQL
-
+SELECT ROUND(AVG(col)) FROM table;
 ```
-`SELECT ROUND(AVG(col)) FROM table;` to round the value
+ to round the value
 
 ##### `SUM(col)` gives the SUM value of the col
 ```SQL
-
+SELECT SUM(col) FROM table;
 ```
-`SELECT SUM(col) FROM table;`
+
 ```SQL
-
+SELECT col, col2, SUM(col) FROM table GROUP BY col, col2;
 ```
-`SELECT col, col2, SUM(col) FROM table GROUP BY col, col2;`
+
 
 ### Arithmetic Operator
 
     +  sum
-
     -  subtract
-
     *  multiply
-
     /  divide
-
     ^  power
-
     ! factorial
-
     % modulo
 
-`SELECT col1, col2, ROUND((col1 * 0.1), 2) FROM table;` - get 10% value of col1 and round it to 2 decimal place.
+```sql
+SELECT col1, col2, ROUND((col1 * 0.1), 2) FROM table;
+```
+- get 10% value of col1 and round it to 2 decimal place.
 
 
 ### Alias
 
 `AS`
 ```SQL
-
+SELECT col1, col2, ROUND((col1 * 0.1), 2) AS col_name FROM table;
 ```
-`SELECT col1, col2, ROUND((col1 * 0.1), 2) AS col_name FROM table;` - get 10% value col is named as col_name. Overrides the col to new name.
+- get 10% value col is named as col_name. Overrides the col to new name.
 
 
 
@@ -342,16 +338,13 @@ SELECT * FROM person WHERE email LIKE '%@gmail.%'
 
 #### NULLIF
 ```SQL
-
+NULLIF(val1, val2)
 ```
-`NULLIF(val1, val2)` returns val1 if val1 != val2
+returns val1 if val1 != val2
 ```SQL
-
+SELECT COALESCE( (val / NULLIF(0, 0)), 0);
 ```
-`SELECT COALESCE( (val / NULLIF(0, 0)), 0);` will not throw 0/0 error
-
-
-
+will not throw 0/0 error
 
 #### Time stamps and Dates
 
@@ -359,69 +352,71 @@ SELECT * FROM person WHERE email LIKE '%@gmail.%'
 
 `NOW()`
 ```SQL
-
+SELECT NOW();
 ```
-   ex: `SELECT NOW();` - gives the timestamp and date of now.
-    
+- gives the timestamp and date of now.
+
 `NOW()::DATE`
 ```SQL
-
+SELECT NOW()::DATE;
 ```
-   ex: `SELECT NOW()::DATE;` - gives the date of now.
-    
+- gives the date of now.
+
 `NOW()::TIME`
 ```SQL
-
+SELECT NOW()::TIME;
 ```
-   ex: `SELECT NOW()::TIME;` - gives the timestamp of now.
-    
+- gives the timestamp of now.
 
 
 `INTERVAL 'value'`
 ```SQL
-
+SELECT NOW() - INTERVAL '1 YEAR';
 ```
-   ex: `SELECT NOW() - INTERVAL '1 YEAR';` - gives the timestamp and date of now minus 1 year.
-   ```SQL
+- gives the timestamp and date of now minus 1 year.
 
+```SQL
+SELECT NOW() - INTERVAL '1 MONTH';
 ```
-    
-   ex: `SELECT NOW() - INTERVAL '1 MONTH';` - gives the timestamp and date of now minus 1 Month.
-   ```SQL
-
+ - gives the timestamp and date of now minus 1 Month.
+ 
+```SQL
+SELECT NOW() - INTERVAL '1 DAY';
 ```
-   ex: `SELECT NOW() - INTERVAL '1 DAY';` - gives the timestamp and date of now minus 1 Day.
+- gives the timestamp and date of now minus 1 Day.
    
  
 `EXTRACT('value')`
 ```SQL
-
+SELECT EXTRACT(YEAR FROM NOW());
 ```
-   ex: `SELECT EXTRACT(YEAR FROM NOW());` - extracts year form now
-  ```SQL
-
+- extracts year form now
+   
+```SQL
+SELECT EXTRACT(MONTH FROM NOW());
 ``` 
-   ex: `SELECT EXTRACT(MONTH FROM NOW());` - extracts month form now
-   ```SQL
+- extracts month form now
 
+```SQL
+SELECT EXTRACT(DAY FROM NOW());
 ```
-   ex: `SELECT EXTRACT(DAY FROM NOW());` - extracts day form now
-   ```SQL
+- extracts day form now
 
+```SQL
+SELECT EXTRACT(DOW FROM NOW());
 ```
-   ex: `SELECT EXTRACT(DOW FROM NOW());` - extracts day of week form now
-   ```SQL
+- extracts day of week form now\
+   
+```SQL
+SELECT EXTRACT(CENTURY FROM NOW());
+```
+ - extracts century form now
 
-```
-   ex: `SELECT EXTRACT(CENTURY FROM NOW());` - extracts century form now
-   ```SQL
-
-```
 `AGE(val1,val2)`
 ```SQL
-
+SELECT AGE(NOW(), dob_col) AS age;
 ```
-   ex: `SELECT AGE(NOW(), dob_col) AS age;`
+
 
 
 ### Constraints
@@ -432,90 +427,93 @@ Unique fields for identifying the row.
 
 `PRIMARY KEY` - when creation of table, use inbuilt func to manage it.
 ```SQL
-
+ALTER TABLE table_name DROP CONSTRAINT indexes_name;
 ```
-`ALTER TABLE table_name DROP CONSTRAINT indexes_name;` - to drop Primary key
+- to drop Primary key
+
 ```SQL
-
+ALTER TABLE table_name ADD PRIMARY KEY (col_name);
 ```
-`ALTER TABLE table_name ADD PRIMARY KEY (col_name);` - to drop Primary key
+- to add Primary key
 
 Delete or fix non-unique values in the col name before setting it has a primary key.
 
 #### Unique
 ```SQL
-
+ALTER TABLE table_name ADD CONSTRAINT new_constraint_name UNIQUE (col_name);
 ```
-`ALTER TABLE table_name ADD CONSTRAINT new_constraint_name UNIQUE (col_name);` - to make columns contain unique values
+- to make columns contain unique values
 
 also be done by
 ```SQL
-
+ALTER TABLE table_name ADD UNIQUE (col_name);
 ```
-`ALTER TABLE table_name ADD UNIQUE (col_name);` - naming of constraint index is done by SQL
+ - naming of constraint index is done by SQL
+
 ```SQL
-
+ALTER TABLE table_name DROP CONSTRAINT indexes_name;
 ```
-`ALTER TABLE table_name DROP CONSTRAINT indexes_name;` - to drop Unique
+- to drop Unique
 
 #### Check
 ```SQL
-
+ALTER TABLE table_name ADD CONSTRAINT new_constraint_name CHECK (col1_name = 'val1' OR col1_name = 'val2');
 ```
-`ALTER TABLE table_name ADD CONSTRAINT new_constraint_name CHECK (col1_name = 'val1' OR col1_name = 'val2');` - to make columns contain only val1 and val
+ - to make columns contain only val1 and val
+
 ```SQL
-
-```
- ex: `ALTER TABLE person ADD CONSTRAINT gender_enum CHECK (gender IN ('Genderqueer',
+ALTER TABLE person ADD CONSTRAINT gender_enum CHECK (gender IN ('Genderqueer',
  'Bigender',
  'Genderfluid',
  'Male',
  'Non-binary',
  'Polygender',
  'Female',
- 'Agender'));`
-
+ 'Agender'));
+```
+ 
 
 #### Delete
 ```SQL
-
+DELETE FROM table_name;
 ```
-`DELETE FROM table_name;` - to delete everyone!!!!
+ - to delete everyone!!!!
 ```SQL
-
+DELETE FROM table_name WHERE col1_name = val;
 ```
-`DELETE FROM table_name WHERE col1_name = val;` - to delete one row, best practice to use Primary Key for WHERE constraint.
+ - to delete one row, best practice to use Primary Key for WHERE constraint.
 
 #### Update
 ```SQL
-
+UPDATE table_name SET col_name = val
 ```
-`UPDATE table_name SET col_name = val` - to update every rows in col
+- to update every rows in col
 ```SQL
-
+UPDATE table_name SET col1_name = val, col2_name = val2 WHERE col_name = val
 ```
-`UPDATE table_name SET col1_name = val, col2_name = val2 WHERE col_name = val` - to update a column, where row with value
+- to update a column, where row with value
 
 #### Handling constraint error - do nothing
 
-`<command_conflict> ON CONFLICT (col_with_conflict) DO NOTHING;` - col must be unique
-```SQL
-
+```sql
+<command_conflict> ON CONFLICT (col_with_conflict) DO NOTHING;
 ```
-   Ex: `insert into person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth) values (1 ,'Mollie', 'Daville', 'mdaville2@chronoengine.com', 'Female', '11/17/2022', 'China') ON CONFLICT (id) DO NOTHING;` - id is primary key, and we are trying to add row with id that already exist.
+- col must be unique
+
+```SQL
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth) values (1 ,'Mollie', 'Daville', 'mdaville2@chronoengine.com', 'Female', '11/17/2022', 'China') ON CONFLICT (id) DO NOTHING;
+```
+ - id is primary key, and we are trying to add row with id that already exist.
    
 #### Handling constraint error - do update with the latest 
 ```SQL
-
+<command_conflict> ON CONFLICT (col_with_conflict) DO UPDATE SET col_name = EXCLUDED.col_name, col2_name = EXCLUDED.col2_name;
 ```
-`<command_conflict> ON CONFLICT (col_with_conflict) DO UPDATE SET col_name = EXCLUDED.col_name, col2_name = EXCLUDED.col2_name;`
+
 ```SQL
-
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth) values (1 ,'Mollie', 'Daville', 'mdaville2@chronoengine.com', 'Female', '11/17/2022', 'China') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
 ```
-
-  Ex: `insert into person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth) values (1 ,'Mollie', 'Daville', 'mdaville2@chronoengine.com', 'Female', '11/17/2022', 'China') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;` - updates only email column with the new value in insert, rest will not.
-  
-
+ - updates only email column with the new value in insert, rest will not.
 
 #### Foreign Key and Joins
 
@@ -523,7 +521,8 @@ also be done by
 
 Here `col_table1_name REFERNCES table2_name (col_table2_name);` is used to set Foreign Key.
 
-Ex : `create table person (
+ ```sql
+create table person (
     id BIGSERIAL NOT NULL PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50) NOT NULL,
@@ -533,60 +532,59 @@ Ex : `create table person (
 	country_of_birth VARCHAR(50) NOT NULL,
 	car_id BIGINT REFERENCES car (id),
 	UNIQUE(car_id)
-);`
-
+);
+```
 #### Inner Joins - displays common value found in both table
 
 ![image-2.png](attachment:image-2.png)
 ```SQL
-
+table1_name JOIN table2_name ON table1_name.clo = table2_name.col;
 ```
-Use `table1_name JOIN table2_name ON table1_name.clo = table2_name.col;`
+
 ```SQL
-
+SELECT * FROM person JOIN car ON person.car_id = car.id;
 ```
-EX: `SELECT * FROM person JOIN car ON person.car_id = car.id;`
+
 ```SQL
-
+SELECT person.first_name, car.make, car.model, car.price FROM person JOIN car ON person.car_id = car.id;
 ```
-EX: `SELECT person.first_name, car.make, car.model, car.price FROM person JOIN car ON person.car_id = car.id;`
+
 
 #### Left Joins - displays common value found in both table + left table values
 
 ![image-3.png](attachment:image-3.png)
 ```SQL
-
+table1_name LEFT JOIN table2_name ON table1_name.clo = table2_name.col;
 ```
-Use `table1_name LEFT JOIN table2_name ON table1_name.clo = table2_name.col;`
+Use `
 ```SQL
-
+SELECT * FROM person LEFT JOIN car ON person.car_id = car.id;
 ```
-EX: `SELECT * FROM person LEFT JOIN car ON person.car_id = car.id;`
+
 ```SQL
-
+SELECT person.first_name, car.make, car.model, car.price FROM person LEFT JOIN car ON person.car_id = car.id;
 ```
-EX: `SELECT person.first_name, car.make, car.model, car.price FROM person LEFT JOIN car ON person.car_id = car.id;`
+
 ```SQL
-
+SELECT person.first_name, car.make, car.model, car.price FROM person LEFT JOIN car USING (car_id);
 ```
-EX: `SELECT person.first_name, car.make, car.model, car.price FROM person LEFT JOIN car USING (car_id);` - if both table have car_id col and join is done using that col.
+- if both table have car_id col and join is done using that col.
 
 #### Delete Dependency Row
 
 You can either delete the Dependent row or Update Dependent col to null and perform, delete in Dependency row.
 
 
-
 ### Export to CSV
 
 ```SQL
-
+\copy (SQL_Query) TO 'path' DELIMITER ',' CSV HEADER;
 ```
-`\copy (SQL_Query) TO 'path' DELIMITER ',' CSV HEADER;`
+
 ```SQL
-
+\copy (SELECT * FROM person) TO '~/Desktop/result.csv' DELIMITER ',' CSV HEADER;
 ```
-EX : `\copy (SELECT * FROM person) TO '~/Desktop/result.csv' DELIMITER ',' CSV HEADER;`
+
 
 
 ### Serial and Serialization
@@ -596,23 +594,25 @@ EX : `\copy (SELECT * FROM person) TO '~/Desktop/result.csv' DELIMITER ',' CSV H
 ![image.png](attachment:image.png)
 
 if you invoke the function, you will update increment last value by one.
-to reset - `ALTER SEQUENCE seq_name RESTART WITH num;`
+to reset - 
+```sql
+ALTER SEQUENCE seq_name RESTART WITH num;
+```
 
 ![image-2.png](attachment:image-2.png)
 
 
 ### Extensions
 ```SQL
-
+SELECT * FROM pg_available_extensions;
 ```
-`SELECT * FROM pg_available_extensions;` - to view all extensions
+- to view all extensions
 ```SQL
-
+CREATE EXTENSION IF NOT EXISTS "extension_name";
 ```
-`CREATE EXTENSION IF NOT EXISTS "extension_name";` - to install extension
+- to install extension
 
 `\df` - to find the functions available to us for use
-
 `SELECT func_name();` - to invoke function
 
 EX: for using Extension.

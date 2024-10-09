@@ -1,4 +1,4 @@
-![[Module.png]]
+	![[Module.png]]
 
 **Note:** All Module work on their own, **you need to explicitly configure** for communication between modules. **Service only modules differ** from this.(httpModule)
 ![[Feature Module.png]]
