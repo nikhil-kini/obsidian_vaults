@@ -8,10 +8,10 @@ It’s part of a three-step process to:
 
 ### Sessions, cookies and tokens
 - When you sign in, the app creates a **token** (usually a series of random characters) that is stored on the app’s database.
-- Within your browser, the app creates a cookie with that token linked.
+- Within your browser, the **app creates a cookie with that token** linked.
 - When you refresh or open a new page that needs to authenticate your identity, the app will compare the token in the cookie to the token in the database. If they match, you’ll remain logged in.
 
-After a certain amount of time has elapsed, the app will destroy the token on their server - meaning you’ll need to log in again and re-authenticate, **sessions**, a.k.a. How long you’re logged in without needing to re-authenticate.
+After a certain amount of time has elapsed, the **app will destroy the token on their server - meaning you’ll need to log in again and re-authenticate, sessions**, a.k.a. How long you’re logged in without needing to re-authenticate.
 
 ## Authentication Factors
 Not all credentials are created equal. There are different ways to verify a user’s identity, known as authentication factors.

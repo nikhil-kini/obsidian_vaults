@@ -38,7 +38,16 @@ git checkout -- fileName1 fileName2
 git restore fileName fileName2
 ```
 
-To Discard changes since mentioned commit
+
+```sh
+git reset --hard HEAD    # Discards local changes
+git clean -n             # Get info on untracked files
+git clean -nd            # Get info on untracked directories
+git clean -f             # delete info on untracked files
+git clean -fd            # delete info on untracked directories
+```
+
+To Discard changes since **mentioned** commit
 ```sh
 git restore --source HEAD~2 fileName fileName2
 ```

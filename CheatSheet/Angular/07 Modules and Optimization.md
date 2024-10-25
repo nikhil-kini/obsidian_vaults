@@ -220,7 +220,7 @@ export class AppModule {}
 
 ![[Lazy Loading.png]]
 
-Note: Make sure the imports are clean(Only imports needed to get max benefit)
+Note: Make sure the imports are clean(Only imports needed to get max benefit). **Feature Modules should not be imported in the `app.module.ts ` should be  imported in routing modules.**
 - edit Feature Module Routes
 ```ts
 const routes: Routes = [

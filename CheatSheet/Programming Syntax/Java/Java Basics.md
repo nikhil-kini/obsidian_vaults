@@ -554,16 +554,31 @@ class MyClass extends MySuperClass implements YourInterface {
 #### 2. Interface
 * Interface is a blueprint of a **class**.
 * It can have only abstract methods. [Except Java 8 and next versions.]
-* Since Java 8, we can have **default and static** methods in an interface.
+		* Since Java 8, we can have **default and static** methods in an interface. Java 9, we can have **private** method.
 ```java
-    interface print{  
-        void printPaper();  
+interface Print{  
+	void printPaper();  
+
+	// default method    
+	default void say(){    
+		System.out.println("Hello, this is default method");    
+	}    
+	
+	// static method    
+	static void sayLouder(String msg){    
+		System.out.println(msg);    
+	}   
+
+	// Private method inside interface  
+    private void saySomething() {  
+        System.out.println("Hello... I'm private method");  
     }  
-    public class A4 implements print{  
-        public void printPaper(){
-          System.out.println("A4 Page Printed. ");
-        }  
-    }
+}  
+public class A4 implements print{  
+	public void printPaper(){
+	  System.out.println("A4 Page Printed. ");
+	}  
+}
 ```
 
 ## Encapsulation

@@ -1,6 +1,6 @@
 [[Java Basics]]
 ## Enum
-Please see https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+Please see https://www.javatpoint.com/enum-in-java
 
 ### Without constructor
 ```java
