@@ -3,7 +3,7 @@ To verify Node version
 node -v
 ```
 
-Use n module from npm in order to upgrade node
+Use **n** module from npm in order to upgrade node
 ```sh
 sudo npm cache clean -f
 sudo npm install -g n

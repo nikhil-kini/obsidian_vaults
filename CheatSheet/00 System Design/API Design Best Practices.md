@@ -1,19 +1,64 @@
 
+### Path Variable vs Query Parameter vs Body
+
+[refer this](https://stackoverflow.com/questions/30967822/when-do-i-use-path-parameters-vs-query-parameters-in-a-restful-api)
+The best practice for RESTful API design is that **path parameters** are used to **identify a specific resource or resources**, while **query parameters** are used to **sort/filter those resources**. And **body** to **send and receive data**.
+
+**Path Variable** - A URI is a **resource identifier that uniquely identifies** a specific instance of a resource TYPE. The URI should only consist of parts that will never change and will continue to uniquely identify that resource throughout its lifetime.
+
+A car is a very tangible object that has attributes like make, model and VIN - that never changes.
+```swift
+GET /cars/honda/civic/coupe/{vin}
+```
+
+**Query Parameter** - **Everything that may change should be reserved for query parameters**, **sorting, filter, pagination, page view**, etc. as such:
+
+```swift
+GET /cars/honda/civic/coupe/{vin}?color={black}
+```
+
+**Body** - **Any data exchange must be done through the body**. The data that is to be uploaded/downloaded to/from the server like multi-media, resource details, userName password, etc
+
+```swift
+POST /cars/honda/civic/coupe
+```
+
+```json
+{ // request send to server
+	vin: 123,
+	color: red
+}
+```
+> In header `location` key you should  return the generated resource URI
+```swift
+GET /cars/honda/civic/coupe/123
+```
+
+```json
+{ // response from server
+	vin: 123,
+	color: red
+}
+```
+
+
+
+
 [What is the use of all GET, PUT, DELETE when anything can be done by POST in the most secured way of communication in REST API calls](https://stackoverflow.com/questions/62360163/what-is-the-use-of-all-get-put-delete-when-anything-can-be-done-by-post-in-the)
 
 Note that, historically, [SOAP](https://en.wikipedia.org/wiki/SOAP) essentially did everything by POST; effectively reducing HTTP from an application protocol to a transport protocol.
 
 The big advantage of GET/PUT/DELETE is that the additional semantics that they promise (meaning, the semantics that are part of the uniform interface agreed to by _all_ resources) allow us to build _general purpose_ components that can do interesting things with the meta data alone, without needing to understand anything specific about the body of the message.
 
-The most important of these is `GET`, which promises that the action of the request is safe. What this means is that, for any resource in the world, we can just try a GET request to "see what happens".
+The most important of these is `GET`, which promises that the action of the **request is safe**. What this means is that, for any resource in the world, we can just try a GET request to "see what happens".
 
 In other words, because GET is safe, we can have web crawlers, and automated document indexing, and eventually Google.
 
-(Another example - today, I can send you a bare URI, like [https://www.google.com](https://www.google.com) and it "just works" because GET is understood uniformly, and does not require that we share any further details about a payload or metadata.)
+(Another example - today, I can send you a bare URI, like [https://www.google.com](https://www.google.com) and it "just works" because `GET` is understood uniformly, and does not require that we share any further details about a payload or metadata.)
 
-Similarly, PUT and DELETE have additional semantic constraints that allow general purpose components to do interesting things like automatically retry lost requests when the network is unreliable.
+Similarly, `PUT` and `DELETE` have additional semantic constraints that allow general purpose components to do interesting things like automatically retry lost requests when the network is unreliable.
 
-POST, however, is effectively unconstrained, and this greatly restricts the actions of general purpose components.
+`POST`, however, is **effectively unconstrained**, and this greatly restricts the actions of general purpose components.
 
 That doesn't mean that POST is [the wrong choice](https://roy.gbiv.com/untangled/2009/it-is-okay-to-use-post); if the semantics of a request aren't worth standardizing, then POST is _fine_.
 
@@ -81,7 +126,7 @@ POST "/api/v1/workouts"
 PATCH "/api/v1/workouts/:workoutId" 
 DELETE "/api/v1/workouts/:workoutId"  
 
-// Implementation using verbs 
+// Implementation using verbs (not recommended)
 GET "/api/v1/getAllWorkouts" 
 GET "/api/v1/getWorkoutById/:workoutId" 
 CREATE "/api/v1/createWorkout" 
@@ -96,7 +141,7 @@ Having a completely different URL for every behavior can become confusing and un
 
 **/api/v1/workouts/:workoutId/records** 
 
-Theoretically you can nest it how deep you want, but the rule of thumb here is to go three levels deep at a maximum.
+Theoretically you can nest it how deep you want, **but the rule of thumb here is to go three levels deep at a maximum.**
 ```javascript
 GET /api/v1/workouts/:workoutId/records/members/:memberId
 ```
@@ -108,7 +153,7 @@ Normally in a GET request we add the filter criteria as a query parameter.
 
 Our new URI will look like this, when we'd like to get only the workouts that are in the mode of "AMRAP" (**A**s **M**any **R**ounds **A**s **P**ossible): **/api/v1/workouts?mode=amrap.**
 
-You can try it further with adding "for%20time" as the value for the "mode" parameter (remember --> "%20" means "white-space") and you should receive all workouts that have the mode "For Time" if there are any stored.
+You can try it further with adding **"for%20time"** as the value for the "mode" parameter (remember --> **"%20" means "white-space"**) and you should receive all workouts that have the mode **"For Time"** if there are any stored.
 
 - Receive all workouts that require a barbell: **/api/v1/workouts?equipment=barbell**
 - Get only 5 workouts: **/api/v1/workouts?length=5**
