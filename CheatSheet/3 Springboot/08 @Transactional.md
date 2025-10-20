@@ -73,7 +73,7 @@ Scenario 3 is called **Phantom reads.**
 
 So, isolation level is the extend to which **Scenario 1, Scenario 2, Scenario 3** can be prevented. You can obtain complete isolation level by implementing locking. That is preventing concurrent reads and writes to the same data from occurring. But it affects performance. The level of isolation depends upon application to application how much isolation is required. ( **Default setting changes from DB to DB**)
 
-**ISOLATION_READ_UNCOMMITTED**: Allows to read changes that haven’t yet been committed. It suffer from Scenario 1, Scenario 2, Scenario 3. (**PostgreSQLand Oracle not supported**)
+**ISOLATION_READ_UNCOMMITTED**: Allows to read changes that haven’t yet been committed. It suffer from Scenario 1, Scenario 2, Scenario 3. (**PostgreSQL and Oracle not supported**)
 
 **ISOLATION_READ_COMMITTED**: Allows reads from concurrent transactions that have been committed. It may suffer from Scenario 2 and Scenario 3. Because other transactions may be updating the data. (**Default for Postgress and Oracle**)
 

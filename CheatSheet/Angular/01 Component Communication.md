@@ -115,7 +115,7 @@ That is:
 
 #### `@ViewChild` and `@ContentChild`
 
--  `@ViewChild` **Child to  -> Parent**
+-  `@ViewChild` **Child to  -> Parent has access**
 - `@ContentChild` **Parent -> Child**
 - Gives access to properties and function of the child to the parent.
 - *we need to initialize **View** i.e we need to initialize **AfterViewInit***

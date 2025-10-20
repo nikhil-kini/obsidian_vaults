@@ -4,6 +4,7 @@
 
 [URI builder ref](https://www.baeldung.com/spring-uricomponentsbuilder)
 [Rest Template](https://www.baeldung.com/spring-5-webclient)
+[Rest Client](https://www.baeldung.com/spring-boot-restclient)
 
 ## Override the default HTTP client to improve performance
 

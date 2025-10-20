@@ -88,12 +88,12 @@ System.out.println(welcomeText);
 ```
 ## OOPs features in details
 
-- [Object](https://www.javatpoint.com/object-and-class-in-java)
+- Object
 - Class
-- [Inheritance](https://www.javatpoint.com/inheritance-in-java)
-- [Polymorphism](https://www.javatpoint.com/runtime-polymorphism-in-java)
-- [Abstraction](https://www.javatpoint.com/abstract-class-in-java)
-- [Encapsulation](https://www.javatpoint.com/encapsulation)
+- Inheritance
+- Polymorphism
+- Abstraction
+- Encapsulation
 - Coupling (class - strong coupling, interface - weak coupling)
 - **Cohesion** refers to the level of a component which **performs a single well-defined task**. A single well-defined task is done by a highly cohesive method. The weakly cohesive method will split the task into separate parts. The **java.io package is a highly cohesive package because it has I/O related classes and interface**. However, the **java.util package is a weakly cohesive package** because it has unrelated classes and interfaces.
 - Association represents the relationship between the objects.
@@ -115,30 +115,204 @@ Use Spring Restful
 | example         | http://xyz.ir/{segment} | http://xyz.ir/?param{param} |                                                               |
 
 ##  Spring Boot annotations and name some of them
+Annotations are special **metadata tags** (starting with `@`) that tell Spring how to configure and manage components, beans, dependencies, and web endpoints.
 
+They’re used for:
+
+- Dependency Injection (DI)
+    
+- Configuration
+    
+- Web controllers
+    
+- Data access
+    
+- Aspect-oriented programming (AOP)
+    
+- Bootstrapping applications
+
+#### **1️⃣ Core & Configuration Annotations**
+
+|Annotation|Description|
+|---|---|
+|`@SpringBootApplication`|Combines `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. Used to mark the main class.|
+|`@Configuration`|Indicates that the class contains Spring bean definitions.|
+|`@Bean`|Defines a bean to be managed by Spring’s IoC container.|
+|`@ComponentScan`|Scans specified packages for Spring components.|
+|`@PropertySource`|Loads properties file into Spring Environment.|
+
+---
+
+#### **2️⃣ Dependency Injection & Bean Annotations**
+
+|Annotation|Description|
+|---|---|
+|`@Component`|Generic annotation for any Spring-managed component.|
+|`@Service`|Marks a service class — a specialized `@Component`.|
+|`@Repository`|Marks a DAO (Data Access Object); helps with exception translation.|
+|`@Controller`|Marks a web controller (for MVC).|
+|`@RestController`|Combines `@Controller` + `@ResponseBody` for REST APIs.|
+|`@Autowired`|Automatically injects dependencies.|
+|`@Qualifier`|Used with `@Autowired` to specify which bean to inject.|
+|`@Value`|Injects property values from configuration files.|
+
+---
+
+#### **3️⃣ Web & REST Annotations**
+
+|Annotation|Description|
+|---|---|
+|`@RequestMapping`|Maps HTTP requests to handler methods/classes.|
+|`@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`|Shorthand for `@RequestMapping` with specific HTTP methods.|
+|`@PathVariable`|Binds a URI path variable to a method parameter.|
+|`@RequestParam`|Binds a query parameter to a method parameter.|
+|`@RequestBody`|Binds JSON/XML body of a request to a Java object.|
+|`@ResponseBody`|Indicates that a method returns data directly, not a view.|
+|`@CrossOrigin`|Enables Cross-Origin Resource Sharing (CORS).|
+
+---
+
+#### **4️⃣ Data Access (Spring Data JPA)**
+
+|Annotation|Description|
+|---|---|
+|`@Entity`|Marks a class as a JPA entity (table).|
+|`@Table`|Specifies the table name.|
+|`@Id`|Marks the primary key field.|
+|`@GeneratedValue`|Defines strategy for ID generation.|
+|`@Column`|Customizes column mapping.|
+|`@Transactional`|Declares that a method or class runs within a transaction.|
+
+---
+
+#### **5️⃣ Testing & Utility**
+
+|Annotation|Description|
+|---|---|
+|`@SpringBootTest`|Loads the full application context for integration testing.|
+|`@TestConfiguration`|Special configuration class for tests.|
+|`@MockBean`|Adds a Mockito mock to the Spring context.|
 ## architecture of Spring Boot
 
-## Controller and RestController.
+Client Layer → Controller Layer → Service Layer → Repository Layer → Database Layer
 
+## Controller and RestController.
+`@Controller` is a **Spring MVC annotation** used to define a **web controller** that handles **HTTP requests** and returns **views (HTML, JSP, Thymeleaf, etc.)**.
+
+```java
+@Controller
+public class HomeController {
+
+    @GetMapping("/home")
+    public String homePage(Model model) {
+        model.addAttribute("message", "Welcome to Spring Boot!");
+        return "home"; // returns view name "home.html" or "home.jsp"
+    }
+
+    @GetMapping("/greet")
+    @ResponseBody
+    public String greet() {
+        return "Hello, Spring Boot!";  //returns plain text `"Hello, Spring Boot!"` because of `@ResponseBody`.
+    }
+}
+```
 ## Actuators
+It exposes useful **endpoints (REST APIs)** that give insight into:
+
+- Health of the application
+- Metrics (CPU, memory, HTTP requests
+- Application properties
+- Environment configuration
+- Beans and thread dumps
+
 
 ## Wait, notify and notifyall
 
+|Method|Purpose|
+|---|---|
+|`wait()`|Tells the current thread to **release the lock** and **wait** until another thread calls `notify()` or `notifyAll()` on the same object.|
+|`notify()`|Wakes **one** thread that is waiting on the same object’s monitor.|
+|`notifyAll()`|Wakes **all** threads waiting on the same object’s monitor.|
+
 ## Functional Interface lambda expression
+
+A **Functional Interface** is an interface that has **exactly one abstract method** (SAM — _Single Abstract Method_).
+
+A **Lambda Expression** is an **anonymous function** (no name, no class) used to implement a functional interface in a single line.
+
 ##  CRUD works in SpringBoot
 
+|Operation|Meaning|HTTP Method|Example Endpoint|
+|---|---|---|---|
+|**C**|Create|`POST`|`/users`|
+|**R**|Read|`GET`|`/users/{id}`|
+|**U**|Update|`PUT`|`/users/{id}`|
+|**D**|Delete|`DELETE`|`/users/{id}`|
+
 ## Various annotations in Spring AOP
+|Term|Meaning|
+|---|---|
+|**Aspect**|A module that encapsulates cross-cutting logic (e.g., LoggingAspect).|
+|**Join Point**|A point during program execution (like a method call) where you can apply an aspect.|
+|**Advice**|The actual action taken (e.g., logging before a method runs).|
+|**Pointcut**|An expression that selects _which join points_ an advice should run on.|
+|**Weaving**|The process of linking aspects with target objects at runtime.|
 
+
+|Annotation|Description|Example|
+|---|---|---|
+|**@Aspect**|Marks a class as an aspect containing advices.|`@Aspect public class LoggingAspect {}`|
+|**@Before**|Runs **before** the target method executes.|`@Before("execution(* com.app.service.*.*(..))")`|
+|**@After**|Runs **after** the target method (success or failure).|`@After("execution(* com.app.service.*.*(..))")`|
+|**@AfterReturning**|Runs **after a successful** method execution.|`@AfterReturning(pointcut="execution(* com.app.service.*.*(..))", returning="result")`|
+|**@AfterThrowing**|Runs **if method throws an exception**.|`@AfterThrowing(pointcut="execution(* com.app.service.*.*(..))", throwing="error")`|
+|**@Around**|Runs **before and after** method execution (can modify arguments or results).|`@Around("execution(* com.app.service.*.*(..))")`|
+|**@Pointcut**|Defines reusable expressions for join points.|`@Pointcut("execution(* com.app.service.*.*(..))")`|
 ## @Qualifier and @Primary
-
+|Feature|`@Qualifier`|`@Primary`|
+|---|---|---|
+|**Purpose**|Select a specific bean by name|Set a default bean when multiple exist|
+|**Scope**|Method parameter or field injection|Class-level annotation on a bean|
+|**Priority**|Highest (overrides `@Primary`)|Lower priority than `@Qualifier`|
+|**Use Case**|When you want a specific bean explicitly|When most injections should use this bean|
 ## - Bean Scopes in Springboot
-
+|Scope|Description|Lifecycle|Annotation|
+|---|---|---|---|
+|**Singleton**|Default scope. Only **one instance** per Spring IoC container.|Created at startup, shared across the application.|`@Scope("singleton")` (optional)|
+|**Prototype**|A **new instance** is created every time it is requested.|Spring doesn’t manage complete lifecycle.|`@Scope("prototype")`|
+|**Request**|A **new instance per HTTP request**.|Lives for one HTTP request.|`@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)`|
+|**Session**|A **new instance per HTTP session**.|Lives as long as the session is active.|`@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)`|
+|**Application**|One bean instance per **ServletContext**.|Lives for the lifetime of the web application.|`@Scope(value = WebApplicationContext.SCOPE_APPLICATION)`|
+|**Websocket**|One bean per **WebSocket session**.|Lives for the WebSocket session duration.|`@Scope(value = "websocket", proxyMode = ScopedProxyMode.TARGET_CLASS)`|
 ## - Profiling in SpringBoot
+
+|Feature|Description|Example|
+|---|---|---|
+|Profile-specific properties|`application-{profile}.properties`|`application-dev.properties`|
+|Activate profile|Choose which profile to use|`spring.profiles.active=dev`|
+|Profile-specific beans|`@Profile("dev")`|Only loaded when active profile matches|
+|Multiple profiles|Load multiple sets of beans/config|`spring.profiles.active=dev,feature-x`|
 
 ## Linkedlist vs ArrayList
 
+|Feature|ArrayList|LinkedList|
+|---|---|---|
+|**Data Structure**|Resizable **array**|**Doubly-linked list** (nodes connected by pointers)|
+|**Implements**|`List`, `RandomAccess`, `Serializable`, `Cloneable`|`List`, `Deque`, `Serializable`, `Cloneable`|
+|**Memory**|Stores elements in **contiguous memory**|Stores elements in **nodes**, each with data + pointers|
+|**Access**|Fast **random access** using index (`O(1)`)|Slow **random access** (`O(n)`) — must traverse from head|
+
 ## Abstract class and Interface Difference
 
+| Feature                      | Abstract Class                                                    | Interface                                                                  |
+| ---------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Methods**                  | Can have **abstract + concrete** methods                          | **Abstract by default**; can have `default` and `static` methods (Java 8+) |
+| **Variables**                | Can have **instance variables** (fields) with any access modifier | Fields are **public, static, final** by default                            |
+| **Multiple Inheritance**     | **Not allowed** (a class can extend only one abstract class)      | **Allowed** (a class can implement multiple interfaces)                    |
+| **Constructor**              | Can have constructors                                             | **Cannot have constructors**                                               |
+| **Access Modifiers**         | Methods can be **private, protected, public**                     | Methods are **public** by default                                          |
+| **Use Case**                 | Shared code among closely related classes                         | Define a **common contract** for unrelated classes                         |
+| **Extending / Implementing** | `class A extends AbstractClass`                                   | `class B implements Interface1, Interface2`                                |
 ## HashSet and HashMap Implementations
 
 - equals()
