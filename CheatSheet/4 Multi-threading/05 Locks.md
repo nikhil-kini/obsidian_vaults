@@ -85,7 +85,19 @@ public class ConditionDemo {
 
 ```
 
-
+```output
+Produced >> 0
+Consumed << 0
+Produced >> 1
+Produced >> 2
+Consumed << 1
+Produced >> 3
+Produced >> 4
+Consumed << 2
+Produced >> 5
+Produced >> 6
+Consumed << 3
+```
 ## Reentrant Lock
 
 A reentrant lock is one where a process can claim the lock multiple times without blocking on itself. It's useful in situations where it's not easy to keep track of whether you've already grabbed a lock. If a lock is non re-entrant you could grab the lock, then block when you go to grab it again, effectively deadlocking your own process.
@@ -134,6 +146,14 @@ public class ReentrantLockDemo {
 }
 ```
 
+```output
+Method A: sharedData = 1
+Method B: sharedData = 0
+Method A: sharedData = 1
+Method B: sharedData = 0
+Method A: sharedData = 1
+Method B: sharedData = 0
+```
 **Lock Fairness** - by default the lock is unfair, but you can set a boolean to make it fair.
 
 Important methods of Reentrant Locks
@@ -203,6 +223,19 @@ class ReadWriteLockDemo {
 }
 ```
 
+```output
+Reader Thread 1 reads: 0
+Reader Thread 2 reads: 0
+Writer Thread writes: 1
+Writer Thread writes: 2
+Writer Thread writes: 3
+Writer Thread writes: 4
+Writer Thread writes: 5
+Reader Thread 1 reads: 5
+Reader Thread 2 reads: 5
+Reader Thread 1 reads: 5
+Reader Thread 2 reads: 5
+```
 
 ## Visibility Problem
 

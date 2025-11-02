@@ -85,15 +85,15 @@ SEE `02 Routes and 04 HTTP` in Angular notes
 
 ## Rxjs different type of subjects, mergeMap, forkjoin, observables, 
 
-|Operator/Concept|Key Point|
-|---|---|
-|**Subject**|Observable + Observer|
-|**BehaviorSubject**|Has latest value for new subscribers|
-|**ReplaySubject**|Replays N past values|
-|**AsyncSubject**|Emits last value upon completion|
-|**mergeMap**|Flattens & merges async streams in parallel|
-|**forkJoin**|Waits for all async calls, emits once|
-|**Observable**|Core async primitive in RxJS|
+| Operator/Concept    | Key Point                                   |
+| ------------------- | ------------------------------------------- |
+| **Subject**         | Observable + Observer                       |
+| **BehaviorSubject** | Has latest value for new subscribers        |
+| **ReplaySubject**   | Replays N past values                       |
+| **AsyncSubject**    | Emits last value upon completion            |
+| **mergeMap**        | Flattens & merges async streams in parallel |
+| **forkJoin**        | Waits for all async calls, emits once       |
+| **Observable**      | Core async primitive in RxJS                |
 
 ## Event Bubbling and event capturing
 - event bubbling is the propogation of event from the child element to its parent element. To stop this propogation we use event.stopPropogation()

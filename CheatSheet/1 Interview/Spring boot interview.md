@@ -120,15 +120,10 @@ Annotations are special **metadata tags** (starting with `@`) that tell Spring h
 They’re used for:
 
 - Dependency Injection (DI)
-    
 - Configuration
-    
 - Web controllers
-    
 - Data access
-    
 - Aspect-oriented programming (AOP)
-    
 - Bootstrapping applications
 
 #### **1️⃣ Core & Configuration Annotations**
@@ -322,7 +317,7 @@ A **Lambda Expression** is an **anonymous function** (no name, no class) used to
 ```
 Index = hashcode(Key) & (n-1)
 ```
-- **Hash collision** - when two different **elements share same index**. It will be stored in Linked list
+- **Hash collision** - when two different **elements share same index**. It will be stored in Linked list - first 8 elements, Red Black Tree - after that
 ![[Pasted image 20241118123252.png]]
 
 `HashSet` is backed by a `HashMap` internally, but the element you are adding to the `HashSet` is used as the key in the backing `HashMap`. For the **value**, a **dummy** value is used. Therefore the `HashSet`'s `contains(element)` simply calls the backing `HashMap`'s `containsKey(element)`.
@@ -332,4 +327,817 @@ Incase of **null** key , Hashmap implementation consider it as special case and 
 
 While in **_`Hashmap`_** get method the checks if key is passed as _null_. Search Value for _null_ key in bucket _0_.
 **Hence there can only be one null key in one** _`hashmap`_ **object.** And ONE value associated with it. (The last put value)
-## SQL Question based on Aggregate Function and Group by clause
+
+
+## What Is the Diamond Problem?
+
+The **diamond problem** happens when **multiple inheritance** causes _ambiguity_ — i.e., when a class inherits the **same method** from **multiple paths**.
+
+```java
+nterface A {
+    default void greet() {
+        System.out.println("Hello from A");
+    }
+}
+
+interface B {
+    default void greet() {
+        System.out.println("Hello from B");
+    }
+}
+
+class C implements A, B {
+    // ⚠️ Compilation error if you don't override greet()
+}
+
+// Solution
+class C implements A, B {
+    @Override
+    public void greet() {
+        // Choose one explicitly
+        A.super.greet();   // or B.super.greet()
+        System.out.println("Hello from C");
+    }
+}
+```
+
+1️⃣ **Class Wins Rule**
+If a **class** provides a method implementation, it always overrides an interface default.
+```java
+class Base {
+    void greet() {
+        System.out.println("Hello from Base");
+    }
+}
+
+interface A {
+    default void greet() {
+        System.out.println("Hello from A");
+    }
+}
+
+class Derived extends Base implements A {}
+
+public class Main {
+    public static void main(String[] args) {
+        new Derived().greet();  // ✅ "Hello from Base"
+    }
+}
+```
+
+2️⃣ **Sub-Interface Wins Rule**
+If an interface **extends another interface** with the same method, the _most specific_ one wins.
+```java
+interface A {
+    default void greet() {
+        System.out.println("Hello from A");
+    }
+}
+
+interface B extends A {
+    default void greet() {
+        System.out.println("Hello from B");
+    }
+}
+
+class C implements B {}   // B overrides A
+
+public class Main {
+    public static void main(String[] args) {
+        new C().greet();  // ✅ "Hello from B"
+    }
+}
+```
+
+|Feature|Abstract Class|Interface|
+|---|---|---|
+|Multiple inheritance|❌ Not allowed|✅ Allowed|
+|Default methods|✅ Yes (via normal methods)|✅ Yes (Java 8+)|
+|Diamond problem|❌ Avoided automatically|⚠️ Possible if defaults clash|
+|Fields|Can have state|Only constants (`public static final`)|
+
+In **Java 8**, interfaces were enhanced with:
+
+- `default` methods → instance methods with implementation, can be overriden
+- `static` methods → utility methods tied to the interface, cannot be overriden, invocation Interface.methodname()
+
+
+## Why private in interface ?
+
+You can’t make `validate()` private — because **before Java 9**, all interface methods were _implicitly public_.  
+So, every implementing class could also call `validate()` — even though it’s **meant to be internal** helper logic.
+Now, you can write **reusable internal helper methods** without exposing them to implementing classes.
+
+```java
+interface DataProcessor {
+    default void processText(String text) {
+        validate(text);
+        System.out.println("Processing text: " + text);
+    }
+
+    default void processNumber(Integer number) {
+        validate(number.toString());
+        System.out.println("Processing number: " + number);
+    }
+
+    // ❌ Common logic duplicated in both methods
+    default void validate(String data) {
+        if (data == null || data.isEmpty()) {
+            throw new IllegalArgumentException("Invalid data");
+        }
+    }
+    
+    // 🔒 Private helper (not visible to implementers)
+    private void validate(String data) {
+        if (data == null || data.isEmpty())
+            throw new IllegalArgumentException("Invalid data");
+    }
+
+    // 🔒 Private static helper (shared by all)
+    private static void logStart() {
+        System.out.println("=== Starting Processing ===");
+    }
+}
+```
+
+## What are Variable Arguments (Varargs)?
+
+**Variable arguments** (introduced in **Java 5**) allow a method to accept **zero or more arguments** of the same type — instead of specifying a fixed number of parameters.
+
+You define them using an **ellipsis (`...`)**.  gives you array [] of data type.
+
+✔ You can use `String... args` instead of `String[] args` in the `main()` method.  
+✔ Both are valid and mean the same thing.
+
+
+## Equal and hashCode together overriden why?
+
+These two methods are **tightly linked** — they define what it means for two objects to be **equal** and how they behave in **hash-based collections** (like `HashMap`, `HashSet`, or `Hashtable`).
+
+If two objects are equal according to the `equals()` method, they must have the same `hashCode()`.
+
+
+```java
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person p = (Person) o;
+        return age == p.age && name.equals(p.name);
+    }
+    // ❌ hashCode not overridden
+}
+
+HashSet<Person> people = new HashSet<>();
+people.add(new Person("Alice", 25));
+
+// Not expected behavior
+System.out.println(people.contains(new Person("Alice", 25)));  // FALSE
+```
+
+|Collection|Uses `equals()`|Uses `hashCode()`|Impact|
+|---|---|---|---|
+|`HashSet`|✅|✅|Determines uniqueness|
+|`HashMap`|✅|✅|Determines key equality|
+|`LinkedHashMap`|✅|✅|Same as HashMap but ordered|
+|`TreeMap`|❌|❌|Uses `compareTo()` instead|
+## What is a Marker Interface?
+
+A **marker interface** is an **empty interface** — one that contains **no methods or fields** — used to **mark** or **tag** a class as having a special property or behavior.
+
+`public interface Serializable {     // no methods }`
+
+| Marker Interface         | Package     | Purpose                                                         |
+| ------------------------ | ----------- | --------------------------------------------------------------- |
+| `java.io.Serializable`   | `java.io`   | Marks that objects can be serialized (converted to byte stream) |
+| `java.lang.Cloneable`    | `java.lang` | Marks that class supports cloning via `Object.clone()`          |
+| `java.util.RandomAccess` | `java.util` | Marks that list supports fast random access (like `ArrayList`)  |
+
+```java
+
+public interface Auditable {
+    // Marker — no methods
+}
+class User implements Auditable {
+    String username;
+}
+class Product { }
+
+void logAudit(Object obj) {
+    if (obj instanceof Auditable) {  // type checking
+        System.out.println("Auditing: " + obj.getClass().getSimpleName());
+    } else {
+        System.out.println("Not auditable.");
+    }
+}
+
+```
+
+## In Modern Java (Post–Java 5)
+
+Marker interfaces are largely replaced by **annotations**,  
+but they’re still used when you want **compile-time type safety**.
+
+Example:  
+Frameworks like **Spring**, **Hibernate**, or **JPA** sometimes use marker interfaces for configuration or scanning.
+
+## What is the `volatile` Keyword?
+
+`volatile` is a **modifier** you can apply to a variable (not a method, class, or object) to ensure that:
+
+1. **Every thread reads its most up-to-date value** directly from _main memory_, not from its local CPU cache.
+2. **Writes to the variable are immediately visible** to other threads.
+
+## Why TreeSet Doesn’t Allow `null`
+
+Because `TreeSet` needs to **compare elements** to maintain order.  
+It uses either:
+
+- **Natural ordering** (`Comparable.compareTo()`), or
+- A **custom `Comparator`** (`compare()`).
+
+When you insert `null`, it tries to compare it with other elements —  
+and comparison like `null.compareTo("A")` or `comparator.compare(null, "A")`  
+throws a **`NullPointerException`**. **RUNTIME EXCEPTION**
+
+|Case|Behavior|
+|---|---|
+|✅ `HashSet`|Allows one `null` element|
+|🚫 `TreeSet` (natural order)|Throws `NullPointerException`|
+|⚠️ `TreeSet` (custom comparator handling nulls)|Allowed if comparator explicitly supports nulls|
+```java
+import java.util.*;
+
+public class TreeSetAllowNull {
+    public static void main(String[] args) {
+        Comparator<String> nullSafeComparator =
+            Comparator.nullsFirst(Comparator.naturalOrder());  // Custom comparator
+
+        TreeSet<String> set = new TreeSet<>(nullSafeComparator);
+        set.add("B");
+        set.add(null);
+        set.add("A");
+
+        System.out.println(set);
+    }
+}
+
+// output: [null, A, B]
+```
+
+
+## System.exit()
+
+So, when `System.exit()` is called:
+
+- The **JVM begins the shutdown sequence**.
+- **No further code executes**, unless it’s in a **shutdown hook**.
+- The control **never returns** to the caller.
+- **Finally blocks** **may or may not run**, depending on timing.
+
+```java
+public class ExitDemo {
+    public static void main(String[] args) {
+        try {
+            System.out.println("Inside try");
+            System.exit(0);
+        } catch (Exception e) {
+            System.out.println("Inside catch");
+        } finally {
+            System.out.println("Inside finally");
+        }
+    }
+}
+
+//only : Inside try
+```
+
+## Microservice Components
+
+| Component            | Purpose                             |
+| -------------------- | ----------------------------------- |
+| API Gateway          | Entry point, routing, security      |
+| Service Registry     | Dynamic service discovery           |
+| Config Server        | Centralized configuration           |
+| Database per Service | Data ownership, isolation           |
+| Message Broker       | Async communication                 |
+| Logging & Monitoring | Observability, debugging            |
+| Security             | AuthN, AuthZ, encryption            |
+| CI/CD Pipeline       | Automated delivery                  |
+| Containerization     | Isolation and deployment            |
+| Service Mesh         | Manage network traffic and policies |
+## Core Components of a Microservice Architecture
+
+Here are the **main building blocks** that make up a microservice-based system 👇
+
+---
+
+### 🧱 1️⃣ **API Gateway**
+
+- Acts as the **entry point** for all clients.    
+- Routes incoming requests to the correct microservice.
+
+- Handles:
+    
+    - Authentication
+    - Rate limiting
+    - Logging
+    - Caching
+    - Request aggregation        
+
+✅ Example:  
+Netflix **Zuul**, **Spring Cloud Gateway**, **Kong**, **NGINX**
+
+---
+
+### 🧭 2️⃣ **Service Registry & Discovery**
+
+- Keeps track of **available microservice instances** (with their IPs and ports).
+- Helps services find each other dynamically (no hardcoded URLs).    
+
+✅ Example:  
+**Eureka**, **Consul**, **Zookeeper**
+
+---
+
+### 💾 3️⃣ **Database per Service**
+
+- Each microservice **owns its own database** to ensure **loose coupling**.    
+- Different microservices can use different DBs (SQL, NoSQL, etc.)
+
+
+✅ Example:
+
+- ProductService → MySQL
+- OrderService → PostgreSQL
+- UserService → MongoDB    
+
+---
+
+### 🔁 4️⃣ **Inter-Service Communication**
+
+- Services communicate via:
+    
+    - **Synchronous** (REST, gRPC)        
+    - **Asynchronous** (Message queues, Kafka, RabbitMQ)
+
+
+✅ Example:
+
+- OrderService → PaymentService via REST    
+- NotificationService ← OrderService via Kafka event
+
+
+---
+
+### 🧩 5️⃣ **Configuration Server**
+
+- Stores externalized configurations for all microservices.
+- Allows dynamic configuration updates without redeploying services.    
+
+✅ Example:  
+**Spring Cloud Config**, **HashiCorp Consul Config**, **AWS Parameter Store**
+
+---
+
+### 📊 6️⃣ **Centralized Logging**
+
+- All microservices push logs to a **central log aggregator**.
+- Enables monitoring, tracing, and debugging.
+
+
+✅ Example Stack:  
+**ELK Stack (Elasticsearch, Logstash, Kibana)**,  
+or **Splunk**, **Graylog**
+
+---
+
+### 🧠 7️⃣ **Monitoring & Metrics**
+
+- Tracks system health, latency, and performance.
+- Helps detect failures early and enables auto-scaling.
+
+
+✅ Example:  
+**Prometheus + Grafana**, **New Relic**, **Datadog**
+
+---
+
+### 🔒 8️⃣ **Security**
+
+- Implements authentication, authorization, and encryption.
+- Usually centralized at the **API Gateway**.
+- Uses standards like **OAuth2**, **JWT**, **OpenID Connect**.
+
+
+✅ Example:  
+**Keycloak**, **Okta**, **AWS Cognito**
+
+---
+
+### 📨 9️⃣ **Message Broker / Event Bus**
+
+- Enables **asynchronous communication** and **event-driven** microservices.    
+- Ensures decoupling between producers and consumers.
+
+
+✅ Example:  
+**Kafka**, **RabbitMQ**, **ActiveMQ**, **AWS SNS/SQS**
+
+---
+
+### 🧰 1️⃣0️⃣ **Service Mesh**
+
+- Manages service-to-service communication automatically.
+
+- Handles:
+    
+    - Load balancing
+    - Security (mTLS)
+    - Observability
+    - Retry logic        
+
+✅ Example:  
+**Istio**, **Linkerd**, **Consul Connect**
+
+---
+
+### 🚀 1️⃣1️⃣ **Containerization & Orchestration**
+
+- Each microservice runs in a **container**.
+- Containers are managed by **orchestrators** for scaling, resilience, and deployment.
+
+
+✅ Example:
+
+- Container: **Docker**    
+- Orchestration: **Kubernetes**, **ECS**, **OpenShift**
+
+---
+
+### 🧑‍💻 1️⃣2️⃣ **CI/CD Pipeline**
+
+- Automates build, test, and deployment of microservices.
+- Enales faster and safer releases.
+✅ Example:  
+**Jenkins**, **GitHub Actions**, **GitLab CI**, **ArgoCD**
+
+---
+
+### 🧾 1️⃣3️⃣ **Distributed Tracing**
+
+- Tracks requests across multiple services for debugging latency issues.    
+
+✅ Example:  
+**Zipkin**, **Jaeger**, **OpenTelemetry**
+
+---
+
+### 🧠 1️⃣4️⃣ **Business Logic Layer**
+
+- The core logic that performs the service’s specific function (e.g., placing an order, verifying payment).    
+- Isolated and independent.
+
+✅ Example:  
+In a `PaymentService`, it might contain:
+
+`public boolean processPayment(Order order) { ... }`
+
+---
+
+### 🧩 1️⃣5️⃣ **Data Access Layer**
+
+- Responsible for data persistence and retrieval.
+- Uses repositories or DAOs to interact with the database.
+
+✅ Example:  
+Spring Data JPA Repositories, MyBatis Mappers.
+
+
+
+## What is Fault Isolation?
+
+> **Fault Isolation** means **containing a failure** within a single component (or microservice)  
+> so it **doesn’t bring down the entire system**.
+
+| Mechanism            | Role in Fault Isolation                  |
+| -------------------- | ---------------------------------------- |
+| Independent services | Prevents shared failure                  |
+| Circuit breaker      | Stops cascading failure                  |
+| Bulkhead             | Isolates resource exhaustion             |
+| Timeout/retry        | Avoids blocking                          |
+| Health check         | Detects and isolates failure fast        |
+| Redundancy           | Keeps service available                  |
+| Monitoring           | Detects issues before system-wide impact |
+
+| Tool                     | Use                                               |
+| ------------------------ | ------------------------------------------------- |
+| **Spring Boot Actuator** | Health endpoints (`/actuator/health`)             |
+| **Prometheus + Grafana** | System metrics and alerts                         |
+| **ELK Stack**            | Centralized logs                                  |
+| **Zipkin / Jaeger**      | Distributed tracing (find failing service easily) |
+Fault Isolation ensures that **one microservice’s failure doesn’t affect others**.  
+It’s achieved via **independence, resilience patterns, monitoring, and redundancy**
+
+
+## What is Load Balancing?
+
+**Load Balancing** is the process of distributing network or application traffic **across multiple servers** to ensure:
+
+- ✅ Better performance
+- ✅ High availability
+- ✅ Scalability
+- ✅ Fault tolerance
+
+## Two Main Types
+
+|Type|Who decides where the request goes?|
+|---|---|
+|**Client-side Load Balancing**|The **client** selects the target server|
+|**Server-side Load Balancing**|A **central load balancer** routes requests to servers|
+## Server-Side Load Balancing
+
+### 🏗️ How it works:
+
+1. The **client sends a request** to a single entry point — the **load balancer**.
+2. The **load balancer** decides which backend server (node) to send the request to.
+3. The client does **not** know about the internal server details.
+
+
+### 🔍 Example Architecture
+
+```
+Client → [Load Balancer] → Server1                       
+                         ↘→ Server2                       
+						  ↘→              Server3
+```
+
+### 🧠 Examples
+
+- AWS Elastic Load Balancer (ELB)
+- Nginx or HAProxy
+- Google Cloud Load Balancer
+- F5, Apache mod_proxy
+
+### ⚙️ Common Algorithms
+
+- Round Robin
+- Least Connections
+- IP Hash
+- Weighted Round Robin
+
+### ✅ Pros
+
+- Easy for clients — they only call one endpoint
+- Centralized management
+- Easier to monitor and scale
+- Can perform health checks and reroute if a node is down
+
+### ⚠️ Cons
+
+- Single point of failure (if LB fails — unless redundant)
+- Adds an extra network hop (slight latency)
+
+---
+
+## 🧱 2️⃣ Client-Side Load Balancing
+
+### 🏗️ How it works:
+
+1. The **client knows** about all available servers (from a service registry).
+2. The **client chooses** which server to send the request to (based on its algorithm).
+3. No central load balancer — load is distributed by clients.
+
+### 🔍 Example Architecture
+
+```sql
+Client → Server1 
+Client → Server2 
+Client → Server3
+```
+
+The **client library** performs the balancing logic.
+
+### 🧠 Examples
+
+- Netflix **Ribbon** (used with Spring Cloud)
+- gRPC built-in client load balancing
+- Consul, Eureka + RestTemplate in Spring Boot
+- Kubernetes client libraries with service discovery
+
+### ⚙️ Common Algorithms
+
+- Round Robin
+- Random
+- Weighted
+- Response Time–based
+
+
+### ✅ Pros
+
+- Removes central load balancer (less infrastructure)
+- Better scalability for high number of clients
+- Faster routing (no middle hop)
+
+
+### ⚠️ Cons
+
+- Clients must track and update server list (via Service Discovery)
+- Harder to update configuration dynamically
+- Less centralized visibility
+
+
+## What is a Transaction?
+
+A **transaction** is a unit of work that must be executed **completely or not at all** — this is the famous **ACID** principle:
+
+| Property | Meaning                                       |
+| -------- | --------------------------------------------- |
+| **A**    | Atomicity — all operations succeed or none do |
+| **C**    | Consistency — data integrity is maintained    |
+| **I**    | Isolation — transactions don’t interfere      |
+| **D**    | Durability — once committed, data persists    |
+## The Challenge in Microservices
+
+In **microservices**, each service has:
+
+- Its **own database**
+- Its **own transactions**
+- **Runs independently**
+
+### There are mainly **two** strategies:
+
+|Strategy|Description|
+|---|---|
+|**2-Phase Commit (2PC)**|Distributed ACID-style transaction|
+|**Saga Pattern**|Distributed long-running transaction using events & compensations|
+
+Two-Phase Commit (2PC) (**rarely used** in modern cloud systems.)
+- A **coordinator** starts the transaction.
+- Each service (participant) performs its part and says “ready to commit”.
+- If all say yes → coordinator commits.
+- If any fail → coordinator sends rollback to all.
+
+```
+Coordinator
+ ├──> Order Service (prepare)
+ ├──> Payment Service (prepare)
+ ├──> Inventory Service (prepare)
+If all OK:
+ ├──> Commit all
+Else:
+ ├──> Rollback all
+```
+
+## Saga Pattern (Preferred)
+
+A **Saga** is a sequence of local transactions, where each local transaction updates its database and **publishes an event** to trigger the next transaction.
+
+If one fails — previously completed steps are **compensated** with undo operations.
+
+### 💡 Types of Sagas:
+
+1. **Choreography-based Saga** → Event-driven
+2. **Orchestration-based Saga** → Central coordinator controls flow
+
+### Choreography-Based Saga
+
+Each service listens to events and reacts accordingly.
+
+#### Example: Order Processing Flow
+```sql
+1️⃣ Order Service → creates order → emits "OrderCreated" event  
+2️⃣ Payment Service → listens, charges customer → emits "PaymentSuccess"  
+3️⃣ Inventory Service → reserves items → emits "InventoryReserved"  
+4️⃣ Shipping Service → ships items → emits "OrderCompleted"
+```
+If something fails (e.g., Payment fails):
+
+- Payment Service emits "PaymentFailed"
+- Order Service listens → cancels the order    
+
+✅ Fully event-driven  
+⚠️ Can become complex with many services (event chaos)
+
+### Orchestration-Based Saga
+
+A **central coordinator (Saga Orchestrator)** manages the flow.
+```sql
+Order Service (Orchestrator)
+ ├── Calls Payment Service
+ ├── Calls Inventory Service
+ ├── Calls Shipping Service
+```
+If Inventory fails, the orchestrator tells Payment to **refund** (compensating transaction).
+
+✅ Centralized control  
+⚠️ Slight coupling with orchestrator logic
+
+|Tool|Use|
+|---|---|
+|**Spring Cloud Data Flow**|Orchestration and workflow|
+|**Camunda / Zeebe**|Workflow engine for Sagas|
+|**Axon Framework**|Event-driven Saga orchestration|
+|**Temporal.io**|Durable workflow orchestration|
+|**Kafka**|Event bus for Choreography Saga|
+
+## Disable _All_ Auto-Configuration
+```java
+@SpringBootApplication(exclude = AutoConfiguration.class)
+```
+
+## Disable Specific Auto-Configurations
+```java
+@SpringBootApplication(exclude = {
+    DataSourceAutoConfiguration.class,
+    SecurityAutoConfiguration.class
+})
+```
+or 
+```prop
+spring.autoconfigure.exclude=\
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+```
+
+## Synchronized Hashmap vs Concurrent HashMap
+| Operation         | SynchronizedMap                  | ConcurrentHashMap                |
+| ----------------- | -------------------------------- | -------------------------------- |
+| Thread Safety     | ✅ Yes                            | ✅ Yes                            |
+| Lock granularity  | One global lock                  | Fine-grained (per bucket / node) |
+| Read performance  | Slow (blocks on every operation) | Fast (mostly lock-free)          |
+| Write performance | Slow                             | High — allows concurrent writes  |
+| Iterator          | Must be synchronized manually    | Fail-safe (non-blocking)         |
+| Null keys/values  | ✅ Allowed                        | ❌ Not allowed                    |
+| Use case          | Low concurrency                  | High concurrency                 |
+## What is Java Flight Recorder?
+
+**Java Flight Recorder (JFR)** is a **built-in, low-overhead performance monitoring and profiling tool** for the JVM.
+
+It records events inside the JVM — like:
+
+- CPU usage
+- GC pauses
+- Thread contention
+- Method profiling
+-  I/O operations
+- Locks, memory allocations, exceptions, etc.
+
+## Reflection API - Used to test private methods
+
+
+## Testing
+
+- Unit testing - method level, code lines, Code coverage  ( uses Jacoco)
+- Integration testing - working between component
+- end to end testing - whole MVC testing
+- Performance testing
+
+## Ensure code quality
+
+- Code coverage
+- Sonar lint for IDE
+- Sonar Cube Server
+- Code Review
+
+## Java Memory Leak
+
+A Java memory leak occurs when unused objects remain referenced and not garbage collected.  
+Use **profilers**, **heap dumps**, and **structured coding practices** (close resources, weak references, bounded caches) to prevent it.
+
+| Category                | Best Practice                             |
+| ----------------------- | ----------------------------------------- |
+| **Resource management** | Always close I/O and JDBC resources       |
+| **Collections**         | Use bounded or weak collections           |
+| **Threads**             | Use managed thread pools                  |
+| **Listeners**           | Unregister listeners, use weak references |
+| **Caching**             | Use eviction policies (LRU, TTL)          |
+| **Profiling**           | Run memory profiler in pre-prod tests     |
+| **Static data**         | Avoid static mutable objects              |
+**Poorly managed Collections**
+Objects stored in a `Map` or `List` and never removed.
+
+`Map<String, User> sessionMap = new HashMap<>();`
+
+✅ **Fix:**
+- Use **WeakHashMap** for caches.
+- Periodically clear old data.
+
+**Tools**
+
+| **JProfiler / YourKit** | Commercial profilers | Deep thread + memory analysis |
+| ----------------------- | -------------------- | ----------------------------- |
+
+| **Spring Boot Actuator + Micrometer** | Monitor heap & GC metrics | For production microservices |
+| ------------------------------------- | ------------------------- | ---------------------------- |
+
+

@@ -4,7 +4,7 @@
 Circuit Breaker is one of the widely used best practice in the real world distributed systems
 
 Consider a scenario where your application **A** makes synchronous calls to a remote service **R**. If service **R** becomes unavailable or responds very slowly due to performance issues, this situation will negatively impact application **A** as well.
-
+[[12 Key Clock]]
 If the application **A** receives a large number of requests, then there will be lot of threads in the waiting state, waiting for the response from R, leading to ultimately crashing the application **A**. To avoid this issue, we can make use of the Circuit Breaker Pattern, which works very similar to the Circuit Breaker used in our homes to protect the electrical devices from the power spikes. If there is a power spike, then the Circuit Breaker is tripped and will stop the flow of electricity. Similarly, when the remote service **R** in our case, if it's unavailable or responding very slowly, we can introduce a Circuit Breaker that will stop the calls to the service, for a certain amount of time. After this timeout, the Circuit Breaker will again start allowing calls to the service **R** gradually.
 
 

@@ -204,7 +204,7 @@ public class OrderService {
                             .lastName());
             log.info("Start- Sending OrderPlacedEvent {} to Kafka Topic", orderPlacedEvent);
         // To sent the message
-            kafkaTemplate.send("order-placed", orderPlacedEvent);
+            kafkaTemplate.send("order-placed", orderPlacedEvent); //here
             log.info("End- Sending OrderPlacedEvent {} to Kafka Topic", orderPlacedEvent);
         } else {
             throw new RuntimeException("Product with SkuCode " + orderRequest.skuCode() + " is not in stock");
@@ -392,7 +392,7 @@ public class NotificationService {
 
     private final JavaMailSender javaMailSender;
 
-    @KafkaListener(topics = "order-placed")
+    @KafkaListener(topics = "order-placed")  // here
     public void listen(OrderPlacedEvent orderPlacedEvent){
         log.info("Got Message from order-placed topic {}", orderPlacedEvent);
         MimeMessagePreparator messagePreparator = mimeMessage -> {

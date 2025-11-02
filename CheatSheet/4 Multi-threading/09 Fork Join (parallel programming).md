@@ -104,6 +104,12 @@ class FJPDemo {
 }
 ```
 
+```output
+Array is : [4, 8, 7, 7, 6, 10, 9, 1, 4, 5, 6, 2, 9, 3, 5, 5, 2, 3, 8, 2, 4, 4, 5, 1, 10, 3, 2, 5, 10, 4, 10, 4, 9, 6, 9, 4, 3, 4, 5, 10, 3, 10, 10, 7, 6, 9, 1, 8, 9, 7, 5, 3, 5, 10, 8, 10, 2, 5, 10, 10, 2, 3, 3, 1, 4, 6, 3, 6, 1, 9, 9, 1, 5, 9, 2, 8, 2, 2, 10, 6, 4, 5, 1, 5, 8, 3, 5, 10, 4, 1, 5, 3, 3, 6, 10, 4, 4, 10, 10, 10]
+
+2 found 9 times
+```
+
 ```java
 public class WorkLoadSplitter extends RecursiveAction {
 
@@ -139,4 +145,22 @@ class WorkLoadSplitDemo {
         }
     }
 }
+```
+
+```output
+Work Load too big, thus splitting : 128
+Work Load too big, thus splitting : 64
+Work Load too big, thus splitting : 32
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
+Work Load too big, thus splitting : 64
+Work Load too big, thus splitting : 32
+Work Load too big, thus splitting : 32
+Work Load too big, thus splitting : 32
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
+Work Load within limits! Task being executed for workload : 16
 ```

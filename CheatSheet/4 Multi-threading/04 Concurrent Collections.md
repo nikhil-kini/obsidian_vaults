@@ -35,6 +35,8 @@ public class SynchronisedCollections {
         System.out.println("Size of array : " + list.size());
     }
 }
+
+// output : Size of array : 2000
 ```
 
 **Downsides of using the Collections.synchronized() approach**
@@ -107,6 +109,16 @@ class Chef implements Runnable {
 	}
 
 }
+```
+
+```output
+Chef C is preparing Salad
+Chef B is preparing Pasta
+Chef A is preparing Pizza
+Chef A has finished preparing Pizza
+Chef B has finished preparing Pasta
+Chef C has finished preparing Salad
+All dishes are ready! Let's start serving customers.
 ```
 
 ## join vs countdown latch
@@ -197,6 +209,32 @@ public class BlockingQueueDemo {
 }
 ```
 
+```output
+Task produced: 1
+Task being processed by Consumer 1: 1
+Task produced: 2
+Task being processed by Consumer 2: 2
+Task produced: 3
+Task produced: 4
+Task produced: 5
+Task produced: 6
+Task produced: 7
+Task produced: 8
+Task produced: 9
+Task produced: 10
+Task produced: 11
+Task produced: 12
+Task consumed by Consumer 1: 1
+Task being processed by Consumer 1: 3
+Task produced: 13
+Task consumed by Consumer 2: 2
+Task being processed by Consumer 2: 4
+Task produced: 14
+Task consumed by Consumer 1: 3
+Task being processed by Consumer 1: 5
+Task produced: 15
+Task consumed by Consumer 2: 4
+```
 ## Concurrent Map
 
 _ConcurrentMap_ is an extension of the _Map_ interface. It aims to provides a structure and guidance to solving the problem of reconciling throughput with thread-safety.
@@ -250,6 +288,49 @@ public class ConcurrentCache {
 }
 ```
 
+```output
+Key @ 4 not present in the cache, so going to compute!
+Key @ 2 not present in the cache, so going to compute!
+Key @ 0 not present in the cache, so going to compute!
+Key @ 3 not present in the cache, so going to compute!
+Key @ 5 not present in the cache, so going to compute!
+Key @ 1 not present in the cache, so going to compute!
+Key @ 9 not present in the cache, so going to compute!
+Key @ 8 not present in the cache, so going to compute!
+Key @ 7 not present in the cache, so going to compute!
+Key @ 6 not present in the cache, so going to compute!
+Thread Thread-7: Key=Key @ 7, Value=Value for Key @ 7
+Thread Thread-1: Key=Key @ 1, Value=Value for Key @ 1
+Thread Thread-1: Key=Key @ 1, Value=Value for Key @ 1
+Thread Thread-5: Key=Key @ 5, Value=Value for Key @ 5
+Thread Thread-8: Key=Key @ 8, Value=Value for Key @ 8
+Thread Thread-6: Key=Key @ 6, Value=Value for Key @ 6
+Thread Thread-9: Key=Key @ 9, Value=Value for Key @ 9
+Thread Thread-3: Key=Key @ 3, Value=Value for Key @ 3
+Thread Thread-2: Key=Key @ 2, Value=Value for Key @ 2
+Thread Thread-4: Key=Key @ 4, Value=Value for Key @ 4
+Thread Thread-7: Key=Key @ 7, Value=Value for Key @ 7
+Thread Thread-1: Key=Key @ 1, Value=Value for Key @ 1
+Thread Thread-5: Key=Key @ 5, Value=Value for Key @ 5
+Thread Thread-8: Key=Key @ 8, Value=Value for Key @ 8
+Thread Thread-6: Key=Key @ 6, Value=Value for Key @ 6
+Thread Thread-9: Key=Key @ 9, Value=Value for Key @ 9
+Thread Thread-3: Key=Key @ 3, Value=Value for Key @ 3
+Thread Thread-2: Key=Key @ 2, Value=Value for Key @ 2
+Thread Thread-4: Key=Key @ 4, Value=Value for Key @ 4
+Thread Thread-0: Key=Key @ 0, Value=Value for Key @ 0
+Thread Thread-7: Key=Key @ 7, Value=Value for Key @ 7
+Thread Thread-5: Key=Key @ 5, Value=Value for Key @ 5
+Thread Thread-8: Key=Key @ 8, Value=Value for Key @ 8
+Thread Thread-6: Key=Key @ 6, Value=Value for Key @ 6
+Thread Thread-9: Key=Key @ 9, Value=Value for Key @ 9
+Thread Thread-3: Key=Key @ 3, Value=Value for Key @ 3
+Thread Thread-2: Key=Key @ 2, Value=Value for Key @ 2
+Thread Thread-4: Key=Key @ 4, Value=Value for Key @ 4
+Thread Thread-0: Key=Key @ 0, Value=Value for Key @ 0
+Thread Thread-0: Key=Key @ 0, Value=Value for Key @ 0
+
+```
 ### Internal Implementation of Concurrent Map
 
  Internal implementationand working of Concurrent Map
@@ -267,7 +348,7 @@ public class ConcurrentCache {
 
 ## Cyclic Barrier
 
-- Similar to countdown latch with latch count reset
+- Similar to countdown latch with latch count reset, after reaching the max count
 ```java
 public class MultiStageTour {
 
@@ -317,7 +398,26 @@ public class MultiStageTour {
 }
 ```
 
-
+```output
+Tourist 1 arrives at Stage 1
+Tourist 3 arrives at Stage 1
+Tourist 4 arrives at Stage 1
+Tourist 2 arrives at Stage 1
+Tourist 0 arrives at Stage 1
+Tour guide starts speaking...
+Tourist 0 arrives at Stage 2
+Tourist 1 arrives at Stage 2
+Tourist 4 arrives at Stage 2
+Tourist 3 arrives at Stage 2
+Tourist 2 arrives at Stage 2
+Tour guide starts speaking...
+Tourist 4 arrives at Stage 3
+Tourist 2 arrives at Stage 3
+Tourist 3 arrives at Stage 3
+Tourist 0 arrives at Stage 3
+Tourist 1 arrives at Stage 3
+Tour guide starts speaking...
+```
 ## Exchanger
 
 Refer to a synchronization point at which threads pair and swap element within a concurrent environment.
@@ -394,6 +494,12 @@ class SecondThread implements Runnable {
 }
 ```
 
+```output
+First thread is sending data 10
+Second thread is sending data 20
+Second thread received: 10
+First thread received: 20
+```
 ## Queue vs Exchanger
 
 | Queue                                                                                                                 | Exchanger                                                                                                     |
@@ -483,3 +589,15 @@ class WriteTask implements Runnable {
 }
 ```
 
+```output
+[0, 0, 0, 0, 0, 0, 0, 0]
+[0, 2, 0, 7, 0, 6, 0, 0]
+[0, 2, 0, 7, 5, 6, 2, 8]
+[0, 2, 0, 7, 0, 6, 2, 8]
+[0, 2, 0, 7, 4, 6, 1, 8]
+[0, 2, 0, 7, 6, 6, 4, 8]
+[0, 2, 0, 7, 6, 6, 4, 8]
+[0, 2, 0, 7, 6, 5, 4, 8]
+[0, 2, 0, 7, 6, 8, 4, 8]
+[0, 2, 0, 7, 5, 0, 4, 8]
+```

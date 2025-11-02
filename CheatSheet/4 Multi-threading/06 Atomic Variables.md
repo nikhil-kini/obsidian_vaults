@@ -6,7 +6,7 @@
 ## **Atomic Operations**
 
 algorithms exploit low-level atomic machine instructions such as compare-and-swap (CAS), to ensure data integrity.
-
+	
 A typical CAS operation works on three operands:
 
 1. The memory location on which to operate (M)
@@ -70,5 +70,7 @@ public class AtomicVariable {
 //        System.out.println("Count value is : " + count);
     }
 }
+
+// output: Counter value is : 20000
 ```
 

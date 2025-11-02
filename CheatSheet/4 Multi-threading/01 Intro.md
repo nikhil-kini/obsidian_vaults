@@ -73,13 +73,23 @@ class ThreadTwo implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < 51; i++) {
-			System.out.println("      Thread Two: " + i);
+			System.out.println("Thread Two: " + i);
 		}
 	}
 
 }
 ```
 
+```output
+Thread Two : 0
+Thread Two : 1
+Thread Two : 2
+Thread Two : 3
+Thread Three : 0
+Thread Three : 1
+Thread One : 0
+Thread Two : 4
+```
 ## Extending Thread Class
 
 ```java
@@ -114,13 +124,20 @@ class Thread2 extends Thread {
 	public void run() {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < 51; i++) {
-			System.out.println("      Thread Two: " + i);
+			System.out.println("Thread Two: " + i);
 		}
 	}
 
 }
 ```
 
+```output
+T2 : 0
+T2 : 1
+T1 : 0
+T2 : 2
+T1 : 1
+```
 ## join()
 
 - Main thread is a parent thread
@@ -146,13 +163,29 @@ public class JoinThreadExample {
 		
 		one.start();
 		two.start();
-		one.join();
+		one.join();  // main thread waits for one to complete
 		System.out.println("Done executing the ThreadS");
 	}
 	
 }
 ```
 
+```output
+Before invoking threads...
+Thread 1 : 0
+Thread 1 : 1
+Thread 1 : 2
+Thread 1 : 3
+Thread 1 : 4
+Thread 2 : 0
+Thread 2 : 1
+Thread 2 : 2
+Done executing the threads!
+Thread 2 : 3
+Thread 2 : 4
+Thread 2 : 5
+Thread 2 : 6
+```
 ## Daemon Thread
 
 On basis of surface execution, two thread
@@ -217,6 +250,13 @@ class UserThreadHelper implements Runnable{
 }
 ```
 
+```output
+Daemon helper running ...
+Daemon helper running ...
+Daemon helper running ...
+Daemon helper running ...
+User Thread Helper done with execution!
+```
 
 ## Thread Priority
 

@@ -42,12 +42,14 @@ public class SyncronizationDemo {
 	}
 	
 	
-	//  >>>> CRITICAL SECTION - since its important to logic that mitigates race condition
+	//  >>>> CRITICAL SECTION - since its important to logic that mitigates race condition (unexepted change in value)
 	private synchronized static void increment() {
         counter++;
     }
 
 }
+
+// output : Counter is : 20000
 ```
 
 
@@ -115,6 +117,8 @@ public class LockWithCustomObjects {
         }
     }
 }
+
+// output: Counter values : Counter 1 10000 Counter 2 10000
 ```
 
 
@@ -175,15 +179,28 @@ public class WaitAndNotifyDemo {
 	private static void two() throws InterruptedException {
 		synchronized (LOCK) {
 			System.out.println("Hello form method two ..");
-			LOCK.notify();
+			LOCK.notify(); // Remaining code lines in this block are executed
 			System.out.println("Method two running even after notify ...");
+			for (int i = 0; i < 5; i++) {
+            	System.out.println("count " + i);
+            }
 		}
 	}
 
 }
 ```
 
-
+```output
+Hello from method one...
+Hello from method two...
+Hello from method two even after notify...
+count 0
+count 1
+count 2
+count 3
+count 4
+Back Again in the method one
+```
 ## Producer and Consumer Problem
 
 The producer-consumer problem is a synchronization scenario where one or more producer threads generate data and put it into a shared buffer, while one or more consumer threads retrieve and process the data from the buffer concurrently.
@@ -237,7 +254,7 @@ class Worker {
 			while (true) {
 				if (container.size() == top) {
 					System.out.println("Container full, waiting for items for removal");
-					lock.wait();
+					lock.wait();   // release this thread for consumer
 				} else {
 					System.out.println(sequence + " Added to the container");
 					container.add(sequence++);
@@ -253,10 +270,10 @@ class Worker {
 			while (true) {
 				if (container.size() == bottom) {
 					System.out.println("Container empty, waiting for items to be added ...");
-					lock.wait();
+					lock.wait(); // release this thread for producer
 				} else {
 					System.out.println(container.remove(0) + " removed from the container");
-					lock.notify();
+					lock.notify(); // notify will work only when the thread is completely completed, sicne it is a infinite loop, producer only run when wait() is called on the thread
 				}
 				Thread.sleep(500);
 			}
@@ -264,5 +281,22 @@ class Worker {
 	}
 
 }
+```
+
+```output
+0 Added to the container
+1 Added to the container
+2 Added to the container
+3 Added to the container
+4 Added to the container
+Container full, waiting for items to be removed...
+0 Removed from the container
+1 Removed from the container
+2 Removed from the container
+3 Removed from the container
+4 Removed from the container
+Container empty, waiting for items to be added...
+5 Added to the container
+6 Added to the container
 ```
 

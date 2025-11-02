@@ -65,6 +65,14 @@ class Task implements Runnable{
 }
 ```
 
+```output
+Task with ID : 0 being executed by thread : pool-1-thread-1
+Task with ID : 1 being executed by thread : pool-1-thread-1
+Task with ID : 2 being executed by thread : pool-1-thread-1
+Task with ID : 3 being executed by thread : pool-1-thread-1
+Task with ID : 4 being executed by thread : pool-1-thread-1
+```
+
 ## FixedThreadPoolExecutor
 
 - A pool of threads execute tasks in the queue.
@@ -111,6 +119,16 @@ class Work implements Runnable{
 	}
 	
 }
+```
+
+```output
+Task with ID : 2 being executed by thread : pool-1-thread-2
+Task with ID : 1 being executed by thread : pool-1-thread-1
+Task with ID : 3 being executed by thread : pool-1-thread-1
+Task with ID : 4 being executed by thread : pool-1-thread-2
+Task with ID : 5 being executed by thread : pool-1-thread-1
+Task with ID : 6 being executed by thread : pool-1-thread-2
+Task with ID : 7 being executed by thread : pool-1-thread-1
 ```
 
 ## CachedThreadPool
@@ -165,6 +183,18 @@ class TaskOne implements Runnable {
 }
 ```
 
+```output
+Task : 9 being executed by pool-1-thread-10
+Task : 1 being executed by pool-1-thread-2
+Task : 5 being executed by pool-1-thread-6
+Task : 8 being executed by pool-1-thread-9
+Task : 6 being executed by pool-1-thread-7
+Task : 4 being executed by pool-1-thread-5
+Task : 7 being executed by pool-1-thread-8
+Task : 3 being executed by pool-1-thread-4
+Task : 2 being executed by pool-1-thread-3
+Task : 0 being executed by pool-1-thread-1
+```
 
 ## ScheduledExecutor
 
@@ -176,11 +206,11 @@ public class ScheduledExecutorDemo {
 
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
-		ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-		scheduledExecutorService.scheduleAtFixedRate(new ProbeTask(), 1000, 2000, TimeUnit.MILLISECONDS);
+		ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);  // thread pool size
+		scheduledExecutorService.scheduleAtFixedRate(new ProbeTask(), 1000, 2000, TimeUnit.MILLISECONDS); // run probe task, start after 1 sec, sleep 2 sec before next execution
 		
 		try {
-			if(!scheduledExecutorService.awaitTermination(5000, TimeUnit.MILLISECONDS)) {
+			if(!scheduledExecutorService.awaitTermination(5000, TimeUnit.MILLISECONDS)) { // run executor for 5 sec.
 				scheduledExecutorService.shutdownNow();
 			}
 		} catch (InterruptedException e) {
@@ -203,6 +233,11 @@ class ProbeTask implements Runnable{
 }
 ```
 
+```output
+Probing end point for updates...
+Probing end point for updates...
+Probing end point for updates...
+```
 
 ## Ideal thread pool size
 
@@ -212,6 +247,26 @@ class ProbeTask implements Runnable{
 	- IO intensive tasks
 		- Experiment performance
 
+```java
+public class CpuIntensiveTask {
+    public static void main(String[] args) {
+        int cores = Runtime.getRuntime().availableProcessors();
+        ExecutorService service = Executors.newFixedThreadPool(cores);
+        System.out.println("Created thread pool with " + cores + " cores");
+        for (int i = 0; i < 20; i++) {
+            service.execute(new CpuTask());
+        }
+    }
+}
+
+class CpuTask implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println("Some CPU intensive task being done by :" + Thread.currentThread().getName());
+    }
+}
+```
 
 ## Callable Interface
 
@@ -233,14 +288,14 @@ public class CallableDemo {
 //		System.out.println("Main thread execution complete!");
 
 		/*
-		 * result.cancel(true); to cancel the future boolean cancelled =
-		 * result.isCancelled(); boolean done = result.isDone(); to check if future is
-		 * complete
+		 * result.cancel(true); to cancel the future boolean
+		cancelled = result.isCancelled(); 
+		boolean done = result.isDone(); to check if future is complete
 		 */
 
-		// >> set time out for blocking .get
+		// >> set timeout for ending .get within the secified limit
 		try {
-			System.out.println(result.get(1, TimeUnit.MILLISECONDS));
+			System.out.println(result.get(1000, TimeUnit.MILLISECONDS));
 		} catch (InterruptedException | ExecutionException | TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -272,4 +327,16 @@ class ReturnValueTask implements Callable<Integer> {
 	}
 
 }
+```
+
+```output
+12
+Main thread execution completed!
+```
+
+error due to timeout
+```output
+Exception in thread "main" java.util.concurrent.TimeoutException
+at java.base/java.util.concurrent.FutureTask.get(FutureTask.java:204)
+at executorService.CallableDemo.main(CallableDemo.java:16)
 ```
