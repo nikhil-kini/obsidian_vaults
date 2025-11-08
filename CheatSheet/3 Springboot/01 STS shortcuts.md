@@ -10,7 +10,11 @@
 | `alt` + `ctrl`  + h     | Find usage of the given variable across project using call hierarchy |
 | `ctrl` + `shift` + f    | Format code(prettier)                                                |
 
-
+| shortcut               | desc                                                                |
+| ---------------------- | ------------------------------------------------------------------- |
+| `ctrl` + `shift` + `-` | split the same opened file view into two, vise versa to revert back |
+| `ctrl` + `shift` + `+` | Zoom text                                                           |
+| `ctrl` + `-`           | Unzoom text                                                         |
 
 | shortcut                      | desc                   |
 | ----------------------------- | ---------------------- |
