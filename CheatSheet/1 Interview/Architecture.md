@@ -452,3 +452,190 @@ Transactions are used to maintain data accuracy, consistency, and reliability—
 | **Example Systems**        | SQL (Postgres, MySQL)       | All distributed systems                    | Cassandra, DynamoDB, CouchDB                   |
 
 
+## Saga Pattern in Microservices
+
+A Saga is a sequence of steps (local transactions) that happen across multiple microservices.
+Each step either:
+
+**Succeeds**, and the saga moves to the next step
+**Fails**, and the system **triggers compensating transactions** to undo the completed steps
+
+### Components of Saga
+
+| Component                | Purpose                                     |
+| ------------------------ | ------------------------------------------- |
+| Local Transaction        | Creates/updates data in one service         |
+| Compensating Transaction | Undoes local transaction on failure         |
+| Events                   | Trigger next steps in choreography          |
+| Orchestrator             | Controls sequence in orchestration          |
+| Message Broker           | Transports events/messages between services |
+
+### Types of saga designs
+
+| Feature             | Choreography (Event-Driven)                   | Orchestration (Central Coordinator) |
+| ------------------- | --------------------------------------------- | ----------------------------------- |
+| Control             | Decentralized (events)                        | Central “orchestrator” service      |
+| Coupling            | Low between services, but high event coupling | Higher coupling to orchestrator     |
+| Workflow Complexity | Good for simple flows                         | Better for complex flows            |
+| Monitoring          | Harder (distributed)                          | Easier (central flow)               |
+| Failure Handling    | Each service listens for failure events       | Orchestrator decides compensations  |
+| Scalability         | Very high                                     | Good but limited by orchestrator    |
+| Risk                | Event spaghetti                               | Orchestrator becoming a bottleneck  |
+
+### Usage
+
+| Use Case                      | Explanation                                  |
+| ----------------------------- | -------------------------------------------- |
+| Multi-step workflows          | e.g., order → payment → inventory → shipping |
+| Distributed databases         | Each microservice has its own DB             |
+| Need for eventual consistency | Strong consistency is too expensive          |
+| High availability systems     | Avoid distributed locks and 2PC              |
+| Long-running processes        | Human workflows, async tasks                 |
+
+
+| Category                   | Tools                                         |
+| -------------------------- | --------------------------------------------- |
+| Message Brokers            | Kafka, RabbitMQ, NATS, SQS                    |
+| Saga Orchestration Engines | Temporal.io, Camunda/Zeebe, Netflix Conductor |
+| Frameworks                 | Axon Framework, Eventuate, Spring Boot Saga   |
+
+| Advantages                           | Disadvantages                        |
+| ------------------------------------ | ------------------------------------ |
+| No distributed locks                 | Harder to test end-to-end            |
+| No 2-phase commit                    | Compensating actions can be complex  |
+| Highly scalable                      | Eventual consistency (not immediate) |
+| Fault-tolerant                       | Debugging/observability challenges   |
+| Works well with event-driven systems | Requires careful design of events    |
+
+
+## Serverless Architecture
+
+Serverless Architecture is an application design pattern where developers build and deploy code without managing servers.
+The infrastructure—scaling, provisioning, patching, load balancing—is handled automatically by the cloud provider.
+
+You still run on servers, but you do not manage them.
+Billing is based on actual usage (execution time, memory), not on pre-provisioned capacity.
+
+### Core Components
+
+**1. FaaS (Function as a Service)**
+
+Small, stateless functions triggered by events.
+
+Examples:
+
+- AWS Lambda
+- Google Cloud Functions
+- Azure Functions
+- Cloudflare Workers
+
+**2. BaaS (Backend as a Service)**
+
+Managed services used by your functions or frontend.
+
+Examples:
+
+- Firebase
+- DynamoDB
+- Cognito/Auth0
+- S3/Blob storage
+
+| Characteristic           | Description                               |
+| ------------------------ | ----------------------------------------- |
+| **No server management** | Cloud handles provisioning and scaling    |
+| **Event-driven**         | Functions triggered by events/requests    |
+| **Autoscaling**          | Scales automatically based on load        |
+| **Pay-per-use**          | Pay only for execution time               |
+| **Stateless**            | Functions should not rely on local memory |
+| **Ephemeral**            | Functions run quickly and terminate       |
+
+| Drawback                   | Explanation                              |
+| -------------------------- | ---------------------------------------- |
+| **Cold starts**            | First request after idle time is slower  |
+| **Vendor lock-in**         | Relies heavily on cloud provider’s tools |
+| **Debugging complexity**   | Harder to debug distributed functions    |
+| **Limited execution time** | Many FaaS platforms limit run duration   |
+| **Stateless constraints**  | Requires external storage for state      |
+
+| Feature            | Serverless  | Microservices         | Monolith           |
+| ------------------ | ----------- | --------------------- | ------------------ |
+| Scaling            | Automatic   | Manual/auto           | Manual             |
+| Deployment unit    | Function    | Service               | Whole system       |
+| Cost               | Pay-per-use | Pay for services 24/7 | Large upfront cost |
+| State              | Stateless   | Can be stateful       | Usually stateful   |
+| Operational burden | Very low    | Medium                | High               |
+| Vendor lock-in     | High        | Medium                | Low                |
+
+
+## Distributed System vs. Distributed Computing
+
+| Term                      | What It Emphasizes                                                                                 |
+| ------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Distributed System**    | The *system itself*: many machines working together and appearing as one.                          |
+| **Distributed Computing** | The *computations or tasks*: splitting a problem across multiple machines for parallel processing. |
+
+In simple terms:
+
+Distributed System → Architecture / Design of the system
+Distributed Computing → Computation done across distributed nodes
+
+| Category              | Distributed System                                | Distributed Computing                                |
+| --------------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| **Primary Goal**      | Build a cohesive system across many machines      | Speed up or scale computation                        |
+| **Main Concern**      | Coordination, consistency, reliability            | Task decomposition, parallel execution               |
+| **User View**         | Appears as a single system                        | Appears as multiple workers solving pieces of a task |
+| **Fault Tolerance**   | Essential (system must keep running)              | Important but depends on workload                    |
+| **Example Use Cases** | Databases, messaging queues, microservices        | Analytics jobs, ML training, simulations             |
+| **Examples**          | Kafka, MongoDB cluster, Kubernetes, Redis cluster | Spark, Hadoop MapReduce, MPI, Dask                   |
+| **Focus Area**        | System design & architecture                      | Algorithms & computation                             |
+| **Communication**     | Often long-running communication                  | Often batch-style or task-based communication        |
+
+## Microservices and Cross-Cutting Concerns
+
+Cross-cutting concerns are functionalities that are needed across multiple microservices but **do not belong to any single business domain.**
+
+| Concern                            | Description                                          |
+| ---------------------------------- | ---------------------------------------------------- |
+| **Authentication & Authorization** | JWT, OAuth2, API keys, identity provider integration |
+| **Observability**                  | Logging, metrics, tracing                            |
+| **Security**                       | TLS, secrets, certificates, policies                 |
+| **Configuration management**       | External config, feature flags                       |
+| **Resilience**                     | Retries, timeouts, circuit breakers                  |
+| **Rate limiting & throttling**     | API gateway or service mesh                          |
+| **Caching**                        | Distributed caches (Redis), local caches             |
+| **Routing**                        | Service registry, load balancing                     |
+| **Data validation**                | Input validation across edges                        |
+
+### Why Cross-Cutting Concerns Are Challenging in Microservices
+
+In a monolith, cross-cutting concerns are often implemented via:
+- middleware
+- shared libraries
+- aspects (AOP)
+- interceptors
+
+In microservices, each service is:
+- independently deployable
+- independently scaled
+- autonomous with its own DB
+
+This creates challenges:
+- Duplicated logic across services
+- Hard to enforce consistency
+- Harder to update shared code
+- Risk of tight coupling
+
+### Approaches to Cross-Cutting Concerns (Solutions)
+
+| Approach                    | Strength                        | Weakness                 | Typical Use                        |
+| --------------------------- | ------------------------------- | ------------------------ | ---------------------------------- |
+| **API Gateway**             | Offloads external edge concerns | Not for internal traffic | Auth, rate limiting, client-facing |
+| **Service Mesh**            | Uniform internal policies       | Operational overhead     | mTLS, retries, circuit breakers    |
+| **Shared Libraries**        | Simple, local                   | Coupling, version issues | Logging, serialization             |
+| **Platform Services**       | Centralized visibility          | Needs DevOps skills      | Logging, metrics, config           |
+| **Middleware/Interceptors** | Easy to use                     | Duplicated logic         | Validation, per-app filters        |
+
+
+
+
+
