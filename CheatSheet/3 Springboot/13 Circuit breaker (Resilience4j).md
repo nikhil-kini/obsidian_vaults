@@ -125,6 +125,12 @@ public interface InventoryClient {
         log.info("Cannot get inventory for skucode {}, failure reason: {}", code, throwable.getMessage());
         return false;
     }
+
+// Default method implementation for the fallback in case of call failure
+    default boolean fallbackMethod(String code, Integer quantity, SpecificExeption specificException) {
+        log.info("Cannot get inventory for skucode {}, failure reason: {}", code, throwable.getMessage());
+        return false;
+    }
 }
 ```
 
