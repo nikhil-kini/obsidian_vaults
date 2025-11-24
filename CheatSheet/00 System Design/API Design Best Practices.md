@@ -1,3 +1,83 @@
+**REST (Representational State Transfer)** is an architectural style for designing networked applications.
+It uses simple, stateless communication — usually over HTTP — where clients interact with resources using standard operations.
+
+REST is not a protocol or standard → **it’s a set of constraints** that shape how distributed systems communicate.
+
+### What Makes an API RESTful?
+
+| Principle             | Meaning                                 |
+| --------------------- | --------------------------------------- |
+| Resource-oriented     | `/products/10`, not `/getProduct?id=10` |
+| HTTP verbs semantics  | GET only retrieves, POST creates        |
+| Standard status codes | 200, 201, 204, 400, 404, 500            |
+| Stateless requests    | No session stored on server             |
+| Proper use of headers | Content-Type, Accept, Cache-Control     |
+| Caching support       | Leverage HTTP caching                   |
+
+
+| Feature     | REST              | GraphQL                   | gRPC                               |
+| ----------- | ----------------- | ------------------------- | ---------------------------------- |
+| Style       | Resource-based    | Query-based               | RPC-based                          |
+| Best for    | Public APIs, CRUD | UI apps, flexible queries | High-performance internal services |
+| Protocol    | HTTP 1.1          | HTTP                      | HTTP/2                             |
+| Data Format | JSON/XML          | JSON                      | Protobuf                           |
+| Coupling    | Low               | Medium                    | Higher                             |
+
+
+| Limitation                    | Explanation                    |
+| ----------------------------- | ------------------------------ |
+| No built-in real-time support | Requires polling or WebSockets |
+| Over-fetching                 | Returns more data than needed  |
+| Under-fetching                | Requires multiple requests     |
+| Complex queries               | Hard to express in REST URLs   |
+| No contract-first standard    | Unlike gRPC/GraphQL schemas    |
+
+### What Is HATEOAS
+
+Hypermedia
+As
+The
+Engine
+Of
+Application
+State
+
+```json
+// REST Without HATEOAS
+{
+  "id": 42,
+  "name": "Alice"
+}
+```
+
+```json
+// REST With HATEOAS
+{
+  "id": 42,
+  "name": "Alice",
+  "_links": {
+    "self": { "href": "/users/42" },
+    "orders": { "href": "/users/42/orders" },
+    "update": { "href": "/users/42", "method": "PUT" },
+    "delete": { "href": "/users/42", "method": "DELETE" }
+  }
+}
+```
+
+**Most “REST APIs” today do not implement HATEOAS.
+They are technically REST-like (RESTish).**
+
+Full HATEOAS is more common in:
+Enterprise APIs
+HAL (Hypertext Application Language)
+
+| Drawback                       | Explanation                        |
+| ------------------------------ | ---------------------------------- |
+| More complex to design         | Requires careful link modeling     |
+| Less common in modern APIs     | Many developers prefer simple JSON |
+| Harder for mobile apps         | Larger payloads, more parsing      |
+| Many clients ignore hypermedia | So benefits are lost               |
+
 
 ### Path Variable vs Query Parameter vs Body
 
