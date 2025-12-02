@@ -33,7 +33,28 @@ The constant belongs to a specific class behavior
 
 Example: configuration values, utility constants
 
+---
 
+```java
+.map(dto -> {
+    dto.setTransactionId("123");   -- do not use peek for modification of data
+    return dto;
+}).toList();
+```
+
+```java
+.peek(dto -> System.out.println(dto))
+```
+
+| Feature                       | `peek`                   | `map`                               |
+| ----------------------------- | ------------------------ | ----------------------------------- |
+| **Intended for**              | Debugging / side effects | Transformation                      |
+| **Returns modified element?** | No (same element)        | Yes                                 |
+| **Should mutate objects?**    | ❌ Avoid                  | ✔ Acceptable                        |
+| **Safe in production code?**  | Usually no               | Yes                                 |
+| **Common use cases**          | Logging                  | Updating elements, converting types |
+
+---
 
 ```java
 @JsonInclude(JsonInclude.Include.NON_NULL)
