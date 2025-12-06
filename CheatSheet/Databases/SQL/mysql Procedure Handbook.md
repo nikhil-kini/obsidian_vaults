@@ -2,6 +2,46 @@
 
 A stored procedure is a block of SQL code stored in the database that you can run whenever you need it — like a reusable function.
 
+## Common fuctions used
+
+### MySQL / MariaDB
+To add date with 2 years
+`SELECT DATE_ADD(CURDATE(), INTERVAL 2 YEAR);`
+
+| Context                       | Example  | Proper?                       | Scope                 |
+| ----------------------------- | -------- | ----------------------------- | --------------------- |
+| **Local variable (DECLARE)**  | `myVar`  | ✅ yes                         | inside procedure only |
+| **User/session variable (@)** | `@myVar` | ❌ not needed inside procedure | whole session         |
+
+### SQL query name ambiguty due to name of column and Procedure variable in the UPDATE
+Variable name collision can cause error 1327
+
+If you use this variable inside an UPDATE, MySQL may confuse column names with variables.
+Example of bad:
+```sql
+UPDATE session_user 
+SET session_id = newSessionID;
+```
+
+This can cause:
+
+**ERROR 1327: Undeclared variable: newSessionID**
+
+To avoid that, wrap variables in a derived table:
+```sql
+UPDATE session_user su
+JOIN (SELECT newSessionID AS ns) v
+SET su.session_id = v.ns;
+```
+Similarly, Option 1 — Use a subquery wrapper
+```sql
+UPDATE session_user su
+JOIN (SELECT newSessionID AS ns, oldSessionID AS os, userIDToNewAssignment AS uid) v
+SET su.session_id = v.ns
+WHERE su.user_id = v.uid
+  AND su.session_id = v.os;
+```
+
 ## Basic Structure of a Stored Procedure (MySQL)
 
 ```sql
@@ -189,6 +229,7 @@ Loop checks `finished = 1` → exits the loop safely
 ```sql
 OPEN user_cursor; -- Start using this cursor and prepare the rows so I can fetch them.
 ```
+
 **What it does:**
 Executes the SELECT query attached to the cursor
 Prepares a result set
@@ -205,7 +246,7 @@ read_loop: LOOP
 `LOOP` → this starts the loop block
 
 end it with:
-``sql
+```sql
 END LOOP;
 ```
 or you can specifically reference the name:
