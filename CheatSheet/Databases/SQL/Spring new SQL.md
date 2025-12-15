@@ -149,3 +149,48 @@ BEGIN
     COMMIT;  -- finalize the changes, if there is no error.
 END;
 ```
+
+### SAVEPOINTS
+
+```sql
+
+START TRANSACTION;
+
+UPDATE A...
+SAVEPOINT step1;
+
+UPDATE B...
+SAVEPOINT step2;
+
+UPDATE C...
+
+-- roll back last update only
+ROLLBACK TO step2;
+
+COMMIT;
+
+```
+
+### What is `GREATEST()` in SQL?
+
+`GREATEST()` is a MySQL function that returns the largest value from a list of expressions.
+
+```sql
+GREATEST(value1, value2, ..., valueN)
+
+GREATEST(quantity - quantity_used, 0);
+Give me the result of quantity - quantity_used, but never less than 0.
+```
+
+### Explicitly throw an error using `SIGNAL`
+
+```sql
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Invalid quantity detected';
+```
+
+- `45000` = generic “user-defined exception”
+- Immediately stops execution
+- Triggers `SQLEXCEPTION`
+
+
