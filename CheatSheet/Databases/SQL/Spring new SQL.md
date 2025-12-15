@@ -84,4 +84,68 @@ Returns the modified JSON as a column called updated_data
 But does not write anything back to the table, because this is only a SELECT
 
 
+---
 
+## WHY COALESCE(name, '')?
+
+**COALESCE(column, fallback)** returns the column unless it is NULL, in which case it returns the fallback value.
+
+So:
+
+If session.name is NOT NULL → keep it unchanged
+If session.name is NULL → substitute an empty string ('') so that string concatenation does not become NULL
+
+✔ Without COALESCE:
+`CONCAT('GUIDELINE_', name)`
+
+If name is NULL, the entire result becomes NULL, because:
+`CONCAT(anything, NULL) → NULL
+
+That would produce a NULL new session name, which is probably not desired and could violate a NOT NULL constraint.
+
+✔ With COALESCE(name, ''):
+`CONCAT('GUIDELINE_', COALESCE(name, ''))`
+
+If name is NULL, this becomes:
+CONCAT('GUIDELINE_', '')
+→ 'GUIDELINE_'
+
+This guarantees you always get a valid string and your insert won’t fail.
+
+---
+## What is a Transaction?
+
+A transaction is a group of SQL statements that are executed as one logical unit.
+It ensures that either everything succeeds OR nothing is applied.
+
+A transaction must be:
+
+**Atomic** — all or nothing
+**Consistent** — database rules are preserved
+**Isolated** — doesn't interfere with other transactions
+**Durable** — once committed, it stays even after crash
+
+These 4 are called ACID properties.
+
+```sql
+CREATE PROCEDURE transfer_funds(
+    IN fromAcc INT,
+    IN toAcc INT,
+    IN amount DECIMAL(10,2)
+)
+BEGIN
+    -- Statement to Rollback when there is a error
+    DECLARE exit handler for SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+    END;
+
+    -Statement in transaction context
+    START TRANSACTION;
+
+    UPDATE accounts SET balance = balance - amount WHERE id = fromAcc;
+    UPDATE accounts SET balance = balance + amount WHERE id = toAcc;
+
+    COMMIT;  -- finalize the changes, if there is no error.
+END;
+```
