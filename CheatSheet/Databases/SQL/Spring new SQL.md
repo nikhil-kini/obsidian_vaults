@@ -86,6 +86,24 @@ But does not write anything back to the table, because this is only a SELECT
 
 ---
 
+## DateTime Operations
+
+```sql
+DATE_ADD(
+  DATE_ADD(DATE(transitionDate), INTERVAL 2 YEAR),
+  INTERVAL 1 DAY
+) - INTERVAL 1 SECOND
+
+TIMESTAMP(
+  DATE_ADD(DATE(transitionDate), INTERVAL 2 YEAR),
+  '23:59:59'
+)
+
+DATE_ADD(transitionDate, INTERVAL 2 YEAR) + INTERVAL '23:59:59' HOUR_SECOND
+```
+
+---
+
 ## WHY COALESCE(name, '')?
 
 **COALESCE(column, fallback)** returns the column unless it is NULL, in which case it returns the fallback value.
