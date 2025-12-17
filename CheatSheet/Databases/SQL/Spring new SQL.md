@@ -89,6 +89,7 @@ But does not write anything back to the table, because this is only a SELECT
 ## DateTime Operations
 
 ```sql
+-- add 2 years and at endof day
 DATE_ADD(
   DATE_ADD(DATE(transitionDate), INTERVAL 2 YEAR),
   INTERVAL 1 DAY
