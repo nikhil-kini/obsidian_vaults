@@ -15,25 +15,24 @@ It pollutes the namespace of implementing classes.
 | Can be overridden?                 | No                                      | No, but can be shadowed                 |
 | Can interface have mutable fields? | **No**                                  | Class can have other mutable fields     |
 
+**Better alternatives:**
 
-Better alternatives:
-
-A final class Constants { ... }
-Enum for grouped constants
+- A final class Constants { ... }
+- Enum for grouped constants
 
 ### Use interface variables when:
 
-You want constants associated with an API contract
-
+You want constants associated with an API contract. ( The implemented service has common dependent constants )
 Example: HTTP status codes, error codes, message types
 
 ### Use class static final variables when:
 
 The constant belongs to a specific class behavior
-
 Example: configuration values, utility constants
 
 ---
+
+### Java stream map() vs peek()
 
 ```java
 .map(dto -> {
@@ -50,7 +49,7 @@ Example: configuration values, utility constants
 | ----------------------------- | ------------------------ | ----------------------------------- |
 | **Intended for**              | Debugging / side effects | Transformation                      |
 | **Returns modified element?** | No (same element)        | Yes                                 |
-| **Should mutate objects?**    | ❌ Avoid                  | ✔ Acceptable                        |
+| **Should mutate objects?**    | ❌ Avoid                 | ✔ Acceptable                        |
 | **Safe in production code?**  | Usually no               | Yes                                 |
 | **Common use cases**          | Logging                  | Updating elements, converting types |
 
@@ -61,13 +60,15 @@ Example: configuration values, utility constants
 | Mutation is part of the **logical transformation** (normalizing, cleaning, enriching fields) | ✔ Yes | `map` is semantically a transformation step.                  |
 | Mutation is **local** to the pipeline and not used elsewhere                                 | ✔ Yes | No external code depends on pre-mutation state.               |
 | Mutation is **deterministic** and idempotent                                                 | ✔ Yes | Running it again produces same result; predictable behavior.  |
-| Objects are shared across threads or reused elsewhere                                        | ❌ No  | Other code may observe inconsistent state.                    |
-| Using **parallelStream()**                                                                   | ❌ No  | Objects can be mutated by multiple threads → race conditions. |
-| Mutation involves **external side effects** (DB update, HTTP call, logging)                  | ❌ No  | `map` should not trigger significant side effects.            |
-| Mutation depends on external mutable state                                                   | ❌ No  | Introduces nondeterministic behavior; order matters.          |
-| Expected behavior is to generate **new immutable objects**                                   | ❌ No  | Violates immutability and functional design.                  |
+| Objects are shared across threads or reused elsewhere                                        | ❌ No | Other code may observe inconsistent state.                    |
+| Using **parallelStream()**                                                                   | ❌ No | Objects can be mutated by multiple threads → race conditions. |
+| Mutation involves **external side effects** (DB update, HTTP call, logging)                  | ❌ No | `map` should not trigger significant side effects.            |
+| Mutation depends on external mutable state                                                   | ❌ No | Introduces nondeterministic behavior; order matters.          |
+| Expected behavior is to generate **new immutable objects**                                   | ❌ No | Violates immutability and functional design.                  |
 
 ---
+
+## Json exclusion
 
 ```java
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -75,4 +76,3 @@ public class DtoClass {
 
 // Do NOT include fields in the JSON output if their value is null.  -> when serialization
 ```
-

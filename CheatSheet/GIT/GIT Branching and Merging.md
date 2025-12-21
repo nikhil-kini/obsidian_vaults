@@ -45,8 +45,8 @@ Used when switching branches
 #gitImp 
 Most commonly used
 ```shell
-git stash  # Stashes the changes 
-git pop    # Bring backs the changes to the working directory and deletes the saved stash
+git stash push  # Stashes the changes 
+git stash pop    # Bring backs the changes to the working directory and deletes the saved stash
 ```
 
 No so commonly used
