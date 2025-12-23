@@ -213,3 +213,57 @@ SET MESSAGE_TEXT = 'Invalid quantity detected';
 - Triggers `SQLEXCEPTION`
 
 
+---
+
+### Note on Aggregate fuctions
+
+Every column that is NOT inside an aggregate function (SUM, COUNT, MAX, etc.) must appear in the GROUP BY.
+
+```sql
+-- wrong
+SELECT
+    id,
+    some_other_static_to_be_displayed
+    quantity_used
+FROM session
+GROUP BY id;
+```
+
+❓ Question for SQL:
+
+For id = 1, should quantity_used be:
+
+4 ?
+5 ?
+4 + 5 ?
+MAX(4,5) ?
+
+SQL cannot guess, so it rejects the query.
+
+
+#### Aggregate vs non-aggregate (key idea)
+**Aggregate columns (OK)
+**
+These collapse many rows into one value:
+
+SUM(quantity_used)
+COUNT(*)
+MAX(quantity)
+
+**Non-aggregate columns (must be grouped)
+**
+These represent raw row values:
+
+quantity
+quantity_used
+
+Correct query
+
+```sql
+SELECT
+    id,
+    some_other_static_to_be_displayed
+    SUM(quantity_used)
+FROM session
+GROUP BY id, some_other_static_to_be_displayed;
+```
