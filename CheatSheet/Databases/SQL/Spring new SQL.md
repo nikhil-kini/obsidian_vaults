@@ -280,7 +280,6 @@ MAX(4,5) ?
 
 SQL cannot guess, so it rejects the query.
 
-
 #### Aggregate vs non-aggregate (key idea)
 **Aggregate columns (OK)
 **
