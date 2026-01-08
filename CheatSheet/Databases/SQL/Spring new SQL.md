@@ -190,6 +190,46 @@ COMMIT;
 
 ```
 
+
+**CHEAT TEMPLATE FOR TRANSACTION IN PROCEDURE**
+
+```sql
+CREATE PROCEDURE transfer_funds(
+    IN fromAcc INT,
+    IN toAcc INT,
+    IN amount DECIMAL(10,2)
+)
+BEGIN
+    DECLARE err_code INT;
+    DECLARE err_msg  TEXT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    -- Get original error details
+    GET DIAGNOSTICS CONDITION 1
+        err_code = MYSQL_ERRNO,
+        err_msg  = MESSAGE_TEXT;
+
+    ROLLBACK;
+	
+    SET @err_full_msg = LEFT(CONCAT(
+        'RB: ', err_code, ': ', err_msg
+    ), 128);
+    -- Re-throw with full details
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = @err_full_msg;
+    END;
+
+    START TRANSACTION;
+
+    UPDATE accounts SET balance = balance - amount WHERE id = fromAcc;
+    UPDATE accounts SET balance = balance + amount WHERE id = toAcc;
+
+    COMMIT;  -- finalize the changes, if there is no error.
+END;
+```
+
+
 ### What is `GREATEST()` in SQL?
 
 `GREATEST()` is a MySQL function that returns the largest value from a list of expressions.
