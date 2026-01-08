@@ -1,4 +1,6 @@
+> Note: `@ManyToOne ( fetch=LAZY )` fetch profile in joins in entity defines how much query is run to get the requested data by API. Generally N+1 queries are run on LAZY profile, but can be made to run single query ( fetch=EAGER ) or using JPQL HQL config or QueryDSL library
 
+> "now" is generally termed eager or immediate. "later" is generally termed lazy or delayed.
 
 **NOTE: Don't use `@Data` The `toSting() `ans `hashCode() `method will include the relationship table entities which will cause stack overflow error due to recursive relationships between table. so use**
 ```java
@@ -15,7 +17,7 @@ public class Post {
 	private String mediaUrl;
 	private LocalDateTime createdAt = LocalDateTime.now();
 	
-	@ManyToOne @JoinColumn(name = "user_id")
+	@ManyToOne ( fetch=LAZY ) @JoinColumn(name = "user_id")
 	private User user;
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
