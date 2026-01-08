@@ -279,25 +279,20 @@ For id = 1, should quantity_used be:
 MAX(4,5) ?
 
 SQL cannot guess, so it rejects the query.
-
 #### Aggregate vs non-aggregate (key idea)
-**Aggregate columns (OK)
-**
+
+**Aggregate columns (OK)**
 These collapse many rows into one value:
+- SUM(quantity_used)
+- COUNT(*)
+- MAX(quantity)
 
-SUM(quantity_used)
-COUNT(*)
-MAX(quantity)
-
-**Non-aggregate columns (must be grouped)
-**
+**Non-aggregate columns (must be grouped)**
 These represent raw row values:
-
-quantity
-quantity_used
+- quantity
+- quantity_used
 
 Correct query
-
 ```sql
 SELECT
     id,
