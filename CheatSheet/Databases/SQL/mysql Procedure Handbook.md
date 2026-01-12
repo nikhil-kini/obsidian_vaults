@@ -128,7 +128,11 @@ BEGIN
 
     SET currentTime = NOW();
 
-    SELECT currentTime AS 'Server Time';
+    SELECT currentTime AS 'Server Time';  -- to print
+
+ -- SELECT a.product_type INTO product_type  -- another way to assign
+ -- FROM assignment a
+ -- WHERE a.id = oldAssignmentID;
 END $$
 
 DELIMITER ;
