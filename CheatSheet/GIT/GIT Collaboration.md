@@ -42,6 +42,13 @@ git push -d origin bugfix     # Removes bugfix from origin
 **Managing remotes** #gitImp 
 ```sh
 git remote                     # Shows remote repos
-git remote add upstream url    # Adds a new remote called upstream
-git remote rm upstream         # Remotes upstream
+git remote add upstream url    # Adds a new remote called upstream (name of the remote)
+git remote rm upstream         # Removes upstream
+```
+
+**syncing the remote with your forked branch**
+```sh
+git fetch upstream
+git switch master
+git reset --hard upstream/master
 ```
