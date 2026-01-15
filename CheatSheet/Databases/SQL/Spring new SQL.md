@@ -301,3 +301,39 @@ SELECT
 FROM session
 GROUP BY id, some_other_static_to_be_displayed;
 ```
+
+---
+
+To get table sizes in MySQL for a database, use the `information_schema` tables.
+
+## 📊 Table size for all tables in a database
+```sql
+SELECT 
+    table_name AS `Table`,
+    ROUND((data_length + index_length) / 1024 / 1024, 2) AS `Size_MB`,
+    ROUND(data_length / 1024 / 1024, 2) AS `Data_MB`,
+    ROUND(index_length / 1024 / 1024, 2) AS `Index_MB`
+FROM information_schema.tables
+WHERE table_schema = 'your_database_name'
+ORDER BY Size_MB DESC;
+```
+
+## 📋 Size of a single table
+```sql
+SELECT 
+    table_name,
+    ROUND((data_length + index_length) / 1024 / 1024, 2) AS size_mb
+FROM information_schema.tables
+WHERE table_schema = 'your_database_name'
+  AND table_name = 'your_table_name';
+```
+
+## 🧮 Total size of the whole database
+```sql
+SELECT 
+    table_schema AS `Database`,
+    ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS `Total_Size_MB`
+FROM information_schema.tables
+WHERE table_schema = 'your_database_name'
+GROUP BY table_schema;
+```
