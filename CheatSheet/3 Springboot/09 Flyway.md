@@ -39,3 +39,29 @@ CREATE TABLE `t_orders`
 
 > File needs to placed in this location `src/main/resources/db/migration` for it to be detected.
 > Similarly for `test-container` testing library to pick-up, it should be placed in `src/test/resources/db/migration`
+
+To run flyway with maven
+```sh
+mvn flyway:clean    # will delete all tables and data
+mvn flyway:info     # status of script in application
+mvn flyway:repair   # will repair failed migration
+mvn flyway:migrate  # will migrate to newest version present
+
+# To set the flyway cred manually (try -D flyway.url, -D flyway.user .. if below is giving error)
+mvn flyway:migrate \
+  -Dflyway.url=jdbc:mysql://localhost:3306/namedb \
+  -Dflyway.user=dbuser \
+  -Dflyway.password=dbpass
+
+# To get from application.yml
+mvn flyway:repair -Dflyway.configFiles=config/application-local.yml
+or
+mvn flyway:repair -D flyway.configFiles=config/application-local.yml
+
+# application.yml must contain following fields
+flyway.url: jdbc:mysql://localhost:3306/dbname?autoReconnect=true&useSSL=false
+flyway.user: root
+flyway.password: root
+flyway.locations: filesystem:migrations/sql
+flyway.table: flyway_migration_schema_version
+```
