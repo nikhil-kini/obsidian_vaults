@@ -22,6 +22,15 @@ public class Basic {
 		    .collect(Collectors.toList());
 		System.out.println(upper); // [NIKHIL, ANAND, KINI]
 
+
+// to check not empty and not null
+Optional.ofNullable(obj)
+        .map(Object::toString)
+        .map(String::trim)
+        .filter(s -> !s.isEmpty())
+        .ifPresent(value -> {
+            // use value
+        });
 		
 		
 		
