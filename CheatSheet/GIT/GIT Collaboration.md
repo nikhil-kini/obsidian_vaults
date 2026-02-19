@@ -23,6 +23,7 @@ git checkout origin/food     # view the origin remote changes
 git pull                     # Fetch + merge
 git push origin master       # Pushes master branch to origin remote
 git push                     # Shortcut for “git push origin master” pushes all branches
+git push --force-with-lease  # Safe force push
 ```
 
 **Sharing tags**
