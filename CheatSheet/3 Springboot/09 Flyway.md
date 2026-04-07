@@ -54,9 +54,12 @@ mvn flyway:migrate \
   -Dflyway.password=dbpass
 
 # To get from application.yml
-mvn flyway:repair -Dflyway.configFiles=config/application-local.yml
+mvn flyway:repair -D flyway.configFiles=config/application-local.yml
 or
 mvn flyway:repair -D flyway.configFiles=config/application-local.yml
+
+mvn flyway:migrate -D flyway.outOfOrder=true   -- for allowing execution of lower series execution
+mvn flyway:migrate -D flyway.ignoreMigrationPatterns='*:ignored'   -- for ignoring the above
 
 # application.yml must contain following fields
 flyway.url: jdbc:mysql://localhost:3306/dbname?autoReconnect=true&useSSL=false
