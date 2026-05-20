@@ -32,17 +32,15 @@ Permanent Bucket
 
 
 
-Which Is Better?
+## Which Is Better?
 
 Depends on scale and requirements.
 
-Backend Multipart Upload — Pros & Cons
-Advantages
+### Backend Multipart Upload — Pros & Cons
+**Advantages**
 - Simpler
-
-Easy to implement/debug.
-
-Full backend control
+- Easy to implement/debug.
+- Full backend control
 
 You can:
 
@@ -54,11 +52,11 @@ Good for small apps
 
 Best for:
 
-admin panels
-internal tools
-low traffic systems
-Disadvantages
-Backend becomes bottleneck
+- admin panels
+- internal tools
+- low traffic systems
+- Disadvantages
+- Backend becomes bottleneck
 
 Large file:
 
@@ -66,7 +64,7 @@ Client -> Backend -> S3
 
 File passes through your server.
 
-Problems:
+**Problems:**
 
 high memory
 high CPU
@@ -85,11 +83,10 @@ Client -> Backend -> S3
 instead of:
 
 Client -> S3
-Direct-to-S3 + Lambda Architecture — Pros & Cons
-Advantages
-Highly scalable
-
-Backend never handles actual file bytes.
+## Direct-to-S3 + Lambda Architecture — Pros & Cons
+**Advantages**
+- Highly scalable
+- Backend never handles actual file bytes.
 
 Huge improvement for:
 
@@ -107,10 +104,10 @@ Cheaper backend infrastructure
 
 Your app server only:
 
-generates pre-signed URL
-stores metadata
-triggers processing
-Async processing
+- generates pre-signed URL
+- stores metadata
+- triggers processing
+- Async processing
 
 Lambda can:
 
@@ -147,7 +144,8 @@ frontend
 S3
 Lambda
 queues/events
-Enterprise Recommendation
+
+## Enterprise Recommendation
 Use Backend Multipart Upload When
 small application
 internal admin tool
@@ -161,7 +159,8 @@ HR portal
 profile image upload
 invoice upload
 Use Direct S3 + Lambda When
-production-scale system
+
+## production-scale system
 large files
 media platform
 heavy traffic
@@ -174,7 +173,8 @@ document platforms
 DAM systems
 video processing
 enterprise asset management
-What Most Modern Systems Use
+
+## What Most Modern Systems Use
 
 Modern scalable systems usually use:
 
@@ -190,4 +190,4 @@ Processing
    ↓
 Permanent Storage
 
-because it scales much better.
+**because it scales much better.**
