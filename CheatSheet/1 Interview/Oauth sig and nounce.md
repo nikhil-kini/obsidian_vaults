@@ -242,3 +242,276 @@ public class OAuthSignature {
 ```
 p7F82kdj29dkd==
 ```
+
+|               | OAuth 1.0 | OAuth 2.0  |
+| ------------- | --------- | ---------- |
+| Signature     | Yes       | Usually no |
+| Uses HMAC/RSA | Yes       | No         |
+| Complexity    | High      | Lower      |
+| Uses HTTPS    | Optional  | Required   |
+| Modern APIs   | Rare      | Common     |
+
+
+| Feature | HMAC-SHA1 | HMAC-SHA256 |
+|---|---|---|
+| Hash Function Family | SHA-1 | SHA-2 (SHA-256) |
+| Output Length | 160 bits (20 bytes) | 256 bits (32 bytes) |
+| Security Level | Deprecated. Vulnerable to collision attacks. | High. No known practical collision attacks. |
+| Performance | Faster, requires less processing power. | Slightly more resource-intensive. |
+| Best Used For | Legacy systems. | Modern secure web apps, APIs, and blockchains. |
+
+
+# What is a Nonce?
+
+Nonce means "**Number used once**".
+
+It is a unique, random value added to a request/message to make sure that the same request cannot be reused (replayed) by an attacker.
+
+Main purpose:
+
+> Prevent replay attacks.
+
+## Problem without a nonce
+
+Imagine an API request:
+```http
+POST /transfer
+
+amount=1000
+to=bankAccount123
+```
+An attacker captures this request:
+```
+User ---> Server
+
+Transfer ₹1000
+```
+Later attacker sends the same request again:
+```
+Attacker ---> Server
+
+Transfer ₹1000
+```
+Server sees a valid request and processes it again.
+
+Result:
+
+₹1000 transferred twice
+
+This is a replay attack.
+
+## With nonce
+
+Client adds:
+```http
+POST /transfer
+
+amount=1000
+to=bankAccount123
+nonce=839201
+```
+Server stores:
+```
+Used nonces:
+839201
+```
+Attacker repeats:
+```http
+POST /transfer
+
+amount=1000
+to=bankAccount123
+nonce=839201
+```
+Server checks:
+```
+Is nonce 839201 already used?
+
+YES
+|
+Reject request
+```
+
+## Nonce in OAuth 1.0
+
+OAuth signature uses nonce:
+
+Example:
+```
+Authorization:
+
+oauth_consumer_key="abc123"
+oauth_nonce="784928374"
+oauth_timestamp="1710000000"
+oauth_signature="xyz..."
+```
+Flow:
+```
+Client
+ |
+ | Generates nonce
+ |
+ | Signs request
+ |
+ v
+OAuth Server
+ |
+ | Checks:
+ | 1. Signature valid?
+ | 2. Timestamp valid?
+ | 3. Nonce already used?
+ |
+ v
+Accept
+```
+
+## How nonce works with signature
+
+Request:
+```
+GET /users?id=10
+```
+
+Client creates:
+```
+nonce = 12345
+timestamp = 1710000000
+```
+
+Signature input:
+```
+GET&
+https://api.com/users&
+id=10&
+nonce=12345&
+timestamp=1710000000
+```
+
+HMAC:
+```
+HMAC(secret, data)
+```
+
+Output:
+```
+signature=abcxyz
+```
+Request:
+```
+GET /users?id=10
+
+nonce=12345
+timestamp=1710000000
+signature=abcxyz
+```
+
+## Server validation
+
+Server receives:
+```
+nonce=12345
+timestamp=1710000000
+signature=abcxyz
+```
+
+## Checks:
+
+### 1. Timestamp
+
+Is request old?
+
+Example:
+```
+Current time:
+1710000100
+
+Request:
+1710000000
+
+Difference:
+
+100 seconds
+```
+Allowed → continue.
+
+### 2. Nonce
+
+Database/cache (redis cache):
+```
+oauth_used_nonce
+
+12345
+```
+Check:
+```
+SELECT *
+FROM oauth_nonce
+WHERE nonce='12345';
+
+redis-cli
+KEY nounce:nounce_id
+```
+Found:
+```
+Reject
+```
+Not found:
+```
+Store nonce
+Continue
+```
+
+## 3. Signature
+
+Generate again:
+```
+HMAC(secret, request)
+```
+Compare:
+```
+Client:
+abcxyz
+
+Server:
+abcxyz
+
+MATCH
+```
+Accept.
+
+## Nonce example in Java
+
+Generate random nonce:
+```
+import java.util.UUID;
+
+public class NonceGenerator {
+
+    public static String generate() {
+
+        return UUID.randomUUID()
+                   .toString()
+                   .replace("-", "");
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(generate());
+
+    }
+}
+```
+Output:
+```
+a8f92bc7d81e4f0aa9d3
+```
+
+## Nonce vs Token vs Timestamp
+
+| Feature  | Nonce               | Token                    | Timestamp           |
+| -------- | ------------------- | ------------------------ | ------------------- |
+| Purpose  | Prevent replay      | Authenticate user/client | Check request age   |
+| Lifetime | Usually one request | Minutes/hours            | Few seconds/minutes |
+| Stored?  | Usually yes         | Usually yes              | No                  |
+| Example  | `837462`            | JWT                      | `1710000000`        |
+
