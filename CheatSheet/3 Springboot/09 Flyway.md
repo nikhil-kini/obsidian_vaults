@@ -68,3 +68,172 @@ flyway.password: root
 flyway.locations: filesystem:migrations/sql
 flyway.table: flyway_migration_schema_version
 ```
+
+| Type           | Example            | Purpose             |
+| -------------- | ------------------ | ------------------- |
+| Versioned SQL  | `V1__init.sql`     | Schema/data changes |
+| Repeatable SQL | `R__views.sql`     | Re-run when changed |
+| Java migration | `V2__DataFix.java` | Complex logic       |
+| No extension   | `V1__init`         | Ignored/not valid   |
+
+## JAVA
+```
+src/main/java/db/migration/
+    V3__InsertUsers.java
+```
+
+```java
+package db.migration;
+
+import org.flywaydb.core.api.migration.BaseJavaMigration;
+
+public class V3__InsertUsers 
+        extends BaseJavaMigration {
+
+    public void migrate(Context context)
+            throws Exception {
+
+        context.getConnection()
+               .createStatement()
+               .execute(
+                 "INSERT INTO users VALUES(1,'John')"
+               );
+    }
+}
+```
+Useful when SQL is not enough. And complex logic is about to execute.
+
+## Repeatable migrations
+
+Starts with R
+
+Example:
+```
+R__create_views.sql
+R__refresh_procedures.sql
+```
+Runs when checksum changes.
+
+Common for:
+
+Views
+Stored procedures
+Functions
+
+```
+CREATE OR REPLACE VIEW active_users AS
+SELECT *
+FROM users
+WHERE active=true;
+```
+
+## What is a checksum?
+
+A checksum is a value Flyway calculates from the content of a migration file.
+
+Example file:
+```
+R__create_views.sql
+```
+
+Content:
+```
+CREATE VIEW active_users AS
+SELECT *
+FROM users
+WHERE active = true;
+```
+
+Flyway calculates something like:
+```
+checksum = 123456789
+```
+and stores it in the Flyway history table:
+flyway_schema_history
+
+```
++--------------------------+
+| script                   |
+| checksum                 |
++--------------------------+
+| R__create_views.sql      |
+| 123456789                |
++--------------------------+
+```
+
+Before:
+```
+CREATE VIEW active_users AS
+SELECT *
+FROM users;
+```
+
+After:
+```
+CREATE VIEW active_users AS
+SELECT *
+FROM users
+WHERE active = true;
+```
+
+Now Flyway calculates:
+```
+new checksum = 987654321
+```
+
+Compare:
+```
+Database:
+123456789
+
+File:
+987654321
+```
+Mismatch.
+
+Flyway says:
+```
+File changed
+Run repeatable migration again
+```
+
+## Why repeatable migrations exist
+
+Some database objects are not usually versioned:
+
+Views
+Stored procedures
+Functions
+Triggers
+
+## Difference with V migrations
+
+Versioned migration:
+```
+V1__create_table.sql
+V2__add_column.sql
+V3__insert_data.sql
+```
+
+Runs once:
+````
+V1  ---> done
+V2  ---> done
+V3  ---> done
+```
+If you edit V1 later:
+```
+checksum changed
+```
+
+Flyway throws:
+```
+Validate failed:
+Migration checksum mismatch
+```
+because old migrations should never change.
+
+```
+V = Versioned = execute once, never edit
+R = Repeatable = execute again when content changes
+```
