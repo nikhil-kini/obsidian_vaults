@@ -50,13 +50,19 @@ Used to generate documentation and project reports.
 ## Maven version dependency conflict
 ```sql
 mvn dependency:tree
+
+mvn dependency:tree -D includes=org.yaml:snakeyaml  - filter for the snakeyaml in the dependency tree
+
 ```
 It prints the full dependency graph and highlights conflicts.
 
 Example output:
 
 ```sql
-[INFO] +- org.springframework.boot:spring-boot-starter-web:3.2.2 [INFO] |  \- org.springframework.boot:spring-boot:3.2.2 [INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:3.0.6 [INFO]    \- org.springframework.boot:spring-boot:3.0.6 (omitted for conflict with 3.2.2)
+[INFO] +- org.springframework.boot:spring-boot-starter-web:3.2.2 [INFO]
+ |  \- org.springframework.boot:spring-boot:3.2.2 [INFO]
+ +- org.springframework.boot:spring-boot-starter-data-jpa:3.0.6 [INFO]
+\- org.springframework.boot:spring-boot:3.0.6 (omitted for conflict with 3.2.2)
 ```
 
 🧩 `omitted for conflict with ...` means Maven **ignored** that version.
