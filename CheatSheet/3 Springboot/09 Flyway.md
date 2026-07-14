@@ -61,6 +61,8 @@ mvn flyway:repair -D flyway.configFiles=config/application-local.yml
 mvn flyway:migrate -D flyway.outOfOrder=true   -- for allowing execution of lower series execution
 mvn flyway:migrate -D flyway.ignoreMigrationPatterns='*:ignored'   -- for ignoring the above
 
+mvn flyway:migrate -D flyway.configFiles=config/application-local.yml -D flyway.validateOnMigrate=false -- to not validate removed files due to branch change
+
 # application.yml must contain following fields
 flyway.url: jdbc:mysql://localhost:3306/dbname?autoReconnect=true&useSSL=false
 flyway.user: root
