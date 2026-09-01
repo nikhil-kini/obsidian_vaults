@@ -10,7 +10,6 @@ Container Layers
 
 Container Registry
 
-
 Orchestrator
 
 #### Containers are ephemerous and stateless
